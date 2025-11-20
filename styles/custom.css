@@ -1,0 +1,277 @@
+/* ====================================================================
+ * 1. PENGATURAN UMUM & FONT
+ * ==================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif; 
+}
+
+body {
+    background: #F2F2F2; 
+    /* Memberi ruang di bawah Navbar fixed */
+    padding-top: 110px; 
+}
+
+/* Variabel Warna Kustom */
+:root {
+    --bs-primary: #1A237E; /* Deep Indigo */
+    --bs-primary-rgb: 26, 35, 126;
+    --bs-secondary: #1ca0d4; /* Amber/Yellow */
+    --bs-body-font-family: 'Poppins', sans-serif;
+}
+
+
+/* ====================================================================
+ * 2. NAVBAR KUSTOM (POSITION: FIXED/STICKY) - FIXED & PILL STYLE
+ * ==================================================================== */
+
+header {
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 5%;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo h1 {
+    color: #007AFF; 
+    font-size: 35px;
+    font-weight: 800;
+}
+.logo h1 span {
+    color: #312ECB; 
+}
+
+
+/* Navigasi untuk Desktop */
+nav {
+    display: flex; /* Memastikan link menyamping di tampilan Desktop */
+    align-items: center;
+}
+
+/* GAYA NAVIGASI (PILL STYLE) */
+nav a {
+    text-decoration: none;
+    color: var(--bs-primary); 
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 5px; 
+    padding: 8px 15px; 
+    border-radius: 50px; 
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    border-bottom: none !important; 
+}
+
+/* Efek Hover */
+nav a:hover {
+    color: var(--bs-primary);
+    background-color: rgba(26, 35, 126, 0.1); 
+}
+
+/* Gaya untuk link AKTIF (Tombol Pill Solid) */
+nav a.active {
+    color: white; 
+    background-color: var(--bs-primary); 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    border-bottom: none !important; 
+}
+
+nav a.active:hover {
+    background-color: var(--bs-primary); 
+    color: white;
+}
+
+/* Hamburger Icon (hanya tampil di mobile) */
+label {
+    display: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+label div {
+    width: 30px;
+    height: 3px;
+    background: var(--bs-primary);
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+/* ====================================================================
+ * 3. HERO/JUMBOTRON (BERANDA & PROFILE)
+ * ==================================================================== */
+.jumbotron {
+    /* Background image dan efek gradien */
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('styles/assets/uploads/image_1e7b20.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed; 
+    min-height: 400px; 
+    
+    /* Memastikan konten di tengah vertikal */
+    padding-top: 0 !important; 
+    padding-bottom: 0 !important;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+.jumbotron h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+}
+
+/* JUMBOTRON PROFILE (khusus halaman profil) */
+.jumbotron-profile {
+    background: var(--bs-primary); 
+    background-image: linear-gradient(135deg, var(--bs-primary) 0%, #3f51b5 100%); 
+    border-radius: 0 0 25px 25px; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img {
+    width: 150px; 
+    height: 150px; 
+    object-fit: cover;
+    border: 5px solid white; 
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.profile-img:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.5) !important;
+}
+
+.jumbotron-profile blockquote {
+    border-left: 5px solid var(--bs-secondary); 
+    padding-left: 15px;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+
+/* ====================================================================
+ * 4. KARTU & GALERI
+ * ==================================================================== */
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 15px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.kategori-tag {
+    background-color: var(--bs-secondary);
+    color: var(--bs-primary);
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    display: inline-block;
+}
+
+#karya-siswa-list .card-img-top {
+    height: 160px;
+    object-fit: cover;
+}
+
+
+/* Membuat kartu info profil menempel di desktop (di bawah Navbar fixed) */
+@media (min-width: 992px) {
+    .sticky-top {
+        top: 120px; /* Jaga jarak dari Navbar fixed */
+    }
+}
+
+
+/* ====================================================================
+ * 6. MEDIA QUERY (Tampilan Mobile) - FIX MENU VERTIKAL
+ * ==================================================================== */
+@media (max-width: 768px) {
+    /* Tampilkan Hamburger Icon */
+    label {
+        display: block; 
+    }
+    
+    /* Atur Tampilan Menu Mobile (Vertikal/Column) */
+    nav {
+        position: absolute;
+        top: 100px;
+        background: rgba(255, 255, 255, 0.95); /* Sedikit lebih solid */
+        backdrop-filter: blur(10px);
+        left: 0;
+        /* KUNCI UTAMA: Menyusun item ke bawah */
+        flex-direction: column; 
+        width: 100%; /* Mengambil lebar penuh layar */
+        align-items: center; /* Memposisikan link di tengah horizontal */
+        height: 0;
+        transition: 0.5s;
+        overflow: hidden;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
+    }
+    
+    /* Penyesuaian Link (Tombol) di Mobile */
+    nav a { 
+        display: block; /* Penting: Jadikan setiap link sebagai blok */
+        margin: 10px 0; 
+        width: 80%; /* Membuat tombol lebih lebar */
+        text-align: center;
+        padding: 12px 15px; 
+        border-bottom: none !important; 
+    }
+
+    /* Jarak vertikal untuk link pertama */
+    nav a:first-child {
+        margin-top: 30px; 
+    }
+
+    /* Logika Animasi Menu: Menentukan tinggi saat menu aktif */
+    input:checked ~ header nav {
+        height: 350px; /* Pastikan nilai ini cukup besar */
+        padding-bottom: 20px;
+    }
+
+    /* Transformasi Hamburger Icon */
+    input:checked ~ header label div:nth-child(1) {
+        transform: rotate(-45deg) translate(-9px, 8px);
+    }
+    
+    input:checked ~ header label div:nth-child(2) {
+        opacity: 0;
+    }
+    
+    input:checked ~ header label div:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -7px);
+    }
+
+    /* Jumbotron */
+    .jumbotron h1 {
+        font-size: 2.5rem;
+    }
+
+    /* Jarak atas body di mobile */
+    body {
+        padding-top: 80px;
+    }
+}
