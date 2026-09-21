@@ -28,9 +28,27 @@ const dataKarya = [
     },
     { 
         id: 5, judul: "Makalah Sejarah Kerajaan Majapahit", siswa: "Budi Santoso", kelas: "XI IPS 2", kategori: "Sejarah", tipe: "pdf", 
-        file: "assets/uploads/Makalah-Majapahit.pdf",
+        file: "assets/uploads/Sejarah Kerajaan Majapahit yang merupakan salah satu kerajaan terbesar dalam sejarah Nusantara.pdf",
         thumbnail: "https://via.placeholder.com/400x200/33FF57/FFFFFF?text=Dokumen+PDF+2",
         likes: 21, deskripsi: "Penelitian komprehensif tentang struktur pemerintahan dan pengaruh Majapahit di Asia Tenggara." 
+    },
+    { 
+        id: 6, judul: "Robot Tangan Prostetik", siswa: "Fadhil Faith", kelas: "XI RPL 1", kategori: "Fisika", tipe: "image", 
+        file: "assets/uploads/robottangan.jpg", 
+        thumbnail: "assets/uploads/robottangan.jpg",
+        likes: 76, deskripsi: "Prototipe tangan prostetik sederhana yang digerakkan menggunakan sensor flex dan servo. Proyek ini dibuat untuk tugas akhir praktik fisika terapan." 
+    },
+    { 
+        id: 7, judul: "Aplikasi Kalkulator Pintar", siswa: "Fadhil Faith", kelas: "XI RPL 1", kategori: "Informatika", tipe: "image", 
+        file: "assets/uploads/kalkulator.png", 
+        thumbnail: "assets/uploads/kalkulator.png",
+        likes: 58, deskripsi: "Aplikasi kalkulator berbasis web dengan fitur riwayat perhitungan dan mode konversi satuan, dibangun menggunakan HTML, CSS, dan JavaScript." 
+    },
+    { 
+        id: 8, judul: "Lukisan Kehidupan Kota", siswa: "Fadhil Faith", kelas: "XI RPL 1", kategori: "Seni Rupa", tipe: "image", 
+        file: "assets/uploads/lukisan-kota.jpg", 
+        thumbnail: "assets/uploads/lukisan-kota.jpg",
+        likes: 91, deskripsi: "Lukisan cat air yang menggambarkan dinamika dan warna kehidupan kota metropolitan pada sore hari." 
     },
 ];
 
@@ -165,17 +183,17 @@ function renderDetailKarya() {
 // PROFILE SISWA PAGE
 // =======================
 function renderProfilSiswa() {
-    const targetSiswaNama = "Seseorang"; 
+    const targetSiswaNama = "Fadhil Faith"; 
     const infoContainer = document.getElementById('siswa-info');
     const karyaListContainer = document.getElementById('karya-siswa-list');
     if (!infoContainer || !karyaListContainer) return; 
     // Data contoh info siswa
     const siswaData = {
         nama: targetSiswaNama,
-        kelas: "XI RPl 1",
+        kelas: "XI RPL 1",
         jurusan: "Sains & Teknologi",
         bio: "Saya memiliki minat besar dalam pemrograman, fisika terapan, dan robotika.",
-        image: "https://via.placeholder.com/150"
+        image: "assets/images/default-profile.png"
     };
     infoContainer.innerHTML = `
         <div class="card p-4 text-center sticky-top" style="top: 20px;">
@@ -184,9 +202,15 @@ function renderProfilSiswa() {
             <h3 class="fw-bold">${siswaData.nama}</h3>
             <p class="text-muted">${siswaData.kelas} - ${siswaData.jurusan}</p>
             <span class="badge bg-success mb-3">Siswa Terverifikasi</span>
+            <p class="text-start fw-light fst-italic px-1 mt-1">${siswaData.bio}</p>
             <hr>
-            <h5 class="text-start">Tentang Saya</h5>
-            <p class="text-start fst-italic">${siswaData.bio}</p>
+            <div class="d-grid gap-2 mt-2">
+                <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-envelope-fill me-1"></i>Hubungi Siswa</a>
+                <a href="#" class="btn btn-warning btn-sm"><i class="bi bi-star-fill me-1"></i>Favoritkan</a>
+                <a href="#" class="btn btn-success btn-sm"><i class="bi bi-share-fill me-1"></i>Bagikan Profil</a>
+                <a href="#" class="btn btn-info btn-sm text-white"><i class="bi bi-download me-1"></i>Download CV</a>
+                <a href="#" class="btn btn-secondary btn-sm"><i class="bi bi-cup-straw me-1"></i>Beri Apresiasi</a>
+            </div>
         </div>
     `;
     const karyaSiswa = dataKarya.filter(k => k.siswa === targetSiswaNama);
