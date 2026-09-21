@@ -53,6 +53,20 @@ const dataKarya = [
 ];
 
 // =======================
+// GABUNGAN DATA: dataKarya + localStorage
+// =======================
+function getSemuaKarya() {
+    let stored = [];
+    try {
+        const raw = localStorage.getItem('galeriKarya');
+        if (raw) stored = JSON.parse(raw);
+    } catch (e) {
+        stored = [];
+    }
+    return dataKarya.concat(stored);
+}
+
+// =======================
 // RENDER KARYA CARD
 // =======================
 function renderKarya(karyaArray, targetElementId) {
@@ -91,7 +105,7 @@ function renderKarya(karyaArray, targetElementId) {
 function populateFilters() {
     const categorySelect = document.getElementById('categoryFilter');
     if (!categorySelect) return; 
-    const uniqueCategories = [...new Set(dataKarya.map(karya => karya.kategori))];
+    const uniqueCategories = [...new Set(getSemuaKarya().map(karya => karya.kategori))];
     uniqueCategories.sort().forEach(category => {
         const option = document.createElement('option');
         option.value = category;
@@ -110,7 +124,7 @@ function filterKarya() {
     const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
     const selectedClass = classFilter ? classFilter.value : 'all';
 
-    const filteredKarya = dataKarya.filter(karya => {
+    const filteredKarya = getSemuaKarya().filter(karya => {
         const matchesSearch = karya.judul.toLowerCase().includes(searchTerm) || 
                               karya.siswa.toLowerCase().includes(searchTerm);
         const matchesCategory = selectedCategory === 'all' || karya.kategori === selectedCategory;
@@ -137,7 +151,7 @@ function renderDetailKarya() {
     const container = document.getElementById('karya-detail-container');
     if (!container) return; 
     const karyaId = parseInt(getUrlParameter('id')); 
-    const karya = dataKarya.find(k => k.id === karyaId);
+    const karya = getSemuaKarya().find(k => k.id === karyaId);
     if (!karya) {
         container.innerHTML = '<div class="alert alert-warning text-center">Maaf, Karya tidak ditemukan!</div>';
         return;
@@ -213,7 +227,7 @@ function renderProfilSiswa() {
             </div>
         </div>
     `;
-    const karyaSiswa = dataKarya.filter(k => k.siswa === targetSiswaNama);
+    const karyaSiswa = getSemuaKarya().filter(k => k.siswa === targetSiswaNama);
     if (karyaSiswa.length > 0) {
         let htmlContent = '';
         karyaSiswa.forEach(karya => {
@@ -250,7 +264,7 @@ function renderProfilSiswa() {
 document.addEventListener('DOMContentLoaded', () => {
     // Beranda
     if (document.getElementById('karya-unggulan')) {
-        const karyaUnggulan = dataKarya.slice(0, 3);
+        const karyaUnggulan = getSemuaKarya().slice(0, 3);
         renderKarya(karyaUnggulan, 'karya-unggulan');
     }
     // Galeri
@@ -267,6 +281,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderDetailKarya(); 
     // Profile siswa
     renderProfilSiswa();
+    // Form upload
+    initUploadForm();
 
     // ====== Navbar menu auto highlight aktif ======
     // Simple auto active link for Bootstrap nav (optional enhancement)
@@ -279,52 +295,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 // =======================
-// upload page script
+// UPLOAD KARYA (upload.html)
 // =======================
-document.getElementById('uploadForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const judul = document.getElementById('judul').value.trim();
-    const deskripsi = document.getElementById('deskripsi').value.trim();
-    const gambar = document.getElementById('gambar').value.trim();
-    const siswa = document.getElementById('siswa').value.trim();
-    const kelas = document.getElementById('kelas').value;
-    const kategori = document.getElementById('kategori').value;
-    const alertBox = document.getElementById('formAlert');
+function initUploadForm() {
+    const form = document.getElementById('uploadKaryaForm');
+    if (!form) return;
 
-    // Validasi link gambar
-    if (!/^https?:\/\/.+\.(png|jpg|jpeg|gif|webp)$/.test(gambar)) {
-        alertBox.innerHTML = `<div class="alert alert-warning">URL gambar harus diawali http(s):// dan diakhiri .jpg/.png/.gif/.webp</div>`;
-        return;
-    }
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const judul = document.getElementById('judul').value.trim();
+        const deskripsi = document.getElementById('deskripsi').value.trim();
+        const gambar = document.getElementById('gambar').value.trim();
+        const siswa = document.getElementById('siswa').value.trim();
+        const kelas = document.getElementById('kelas').value;
+        const kategori = document.getElementById('kategori').value;
+        const alertBox = document.getElementById('formAlert');
 
-    // Data galeri dari storage
-    let storageData = localStorage.getItem('galeriKarya');
-    let galeriArr = storageData ? JSON.parse(storageData) : [];
+        if (!alertBox) return;
 
-    // Tambah id unik otomatis
-    const newId = galeriArr.length ? galeriArr[galeriArr.length-1].id+1 : 1000;
-    const data = {
-        id: newId,
-        judul,
-        deskripsi,
-        siswa,
-        kelas,
-        kategori,
-        tipe: "image",
-        file: gambar,
-        thumbnail: gambar,
-        likes: 0, // default
-        waktu: Date.now()
-    };
-    galeriArr.push(data);
-    localStorage.setItem('galeriKarya', JSON.stringify(galeriArr));
+        // Validasi wajib
+        if (!judul || !deskripsi || !gambar || !siswa || !kelas || !kategori) {
+            alertBox.innerHTML = '<div class="alert alert-warning">Mohon lengkapi semua field: judul, deskripsi, URL gambar, nama siswa, kelas, dan kategori.</div>';
+            return;
+        }
 
-    // Feedback sukses
-    alertBox.innerHTML = `<div class="alert alert-success">Karya berhasil diupload! <br> Otomatis diarahkan ke Galeri...</div>`;
-    this.reset();
+        // Validasi link gambar
+        if (!/^https?:\/\/.+\.(png|jpg|jpeg|gif|webp)$/i.test(gambar)) {
+            alertBox.innerHTML = '<div class="alert alert-warning">URL gambar harus diawali http(s):// dan diakhiri .jpg/.png/.gif/.webp</div>';
+            return;
+        }
 
-    setTimeout(function(){
-        window.location.href = "galeri.html";
-    }, 1200);
-});
+        // Data galeri dari storage
+        let galeriArr = [];
+        try {
+            const storageData = localStorage.getItem('galeriKarya');
+            if (storageData) galeriArr = JSON.parse(storageData);
+        } catch (err) {
+            galeriArr = [];
+        }
+
+        // Tambah id unik otomatis (dari seluruh karya yang ada)
+        const newId = getSemuaKarya().reduce((max, k) => Math.max(max, k.id || 0), 0) + 1;
+        const data = {
+            id: newId,
+            judul,
+            deskripsi,
+            siswa,
+            kelas,
+            kategori,
+            tipe: "image",
+            file: gambar,
+            thumbnail: gambar,
+            likes: 0,
+            waktu: Date.now()
+        };
+        galeriArr.push(data);
+        localStorage.setItem('galeriKarya', JSON.stringify(galeriArr));
+
+        // Feedback sukses
+        alertBox.innerHTML = '<div class="alert alert-success">Karya berhasil diupload! <br> Otomatis diarahkan ke Galeri...</div>';
+        this.reset();
+
+        setTimeout(function(){
+            window.location.href = "galeri.html";
+        }, 1200);
+    });
+}
 
