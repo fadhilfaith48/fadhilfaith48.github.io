@@ -10,24 +10,31 @@
 </head>
 <body>
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">
-                <i class="bi bi-mortarboard-fill text-primary"></i> GALERI PROYEK
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html">
+                <i class="bi bi-mortarboard-fill logoicon text-warning"></i>
+                <span>GALERI <span style="color:#ffeea8;">PROYEK</span></span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavCustom" aria-controls="navbarNavCustom" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+            <div class="collapse navbar-collapse" id="navbarNavCustom">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="galeri.html">Galeri Karya</a>
+                        <a class="nav-link" href="index.html"><i class="bi bi-house-door-fill me-1"></i>Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="profile.html">Profil Siswa (Contoh)</a>
+                        <a class="nav-link" href="galeri.html"><i class="bi bi-image me-1"></i>Galeri Karya</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary btn-sm ms-2" href="#">Login</a>
+                        <a class="nav-link" href="profile.html"><i class="bi bi-person-fill me-1"></i>Profil Siswa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="upload.html"><i class="bi bi-plus-square-fill me-1"></i>Tambah Karya</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-login ms-lg-3 mt-2 mt-lg-0" href="login.html"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
                     </li>
                 </ul>
             </div>
