@@ -283,6 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProfilSiswa();
     // Form upload
     initUploadForm();
+    // Form login
+    initLoginForm();
 
     // ====== Navbar menu auto highlight aktif ======
     // Simple auto active link for Bootstrap nav (optional enhancement)
@@ -294,6 +296,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+// =======================
+// LOGIN (login.html) - simulasi
+// =======================
+function initLoginForm() {
+    const form = document.getElementById('loginForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const alertBox = document.getElementById('loginAlert');
+        if (!alertBox) return;
+
+        if (!email || !password) {
+            alertBox.innerHTML = '<div class="alert alert-warning">Mohon isi email dan kata sandi terlebih dahulu.</div>';
+            return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            alertBox.innerHTML = '<div class="alert alert-warning">Format email tidak valid.</div>';
+            return;
+        }
+
+        alertBox.innerHTML = '<div class="alert alert-success">Login berhasil (simulasi)! Mengarahkan ke beranda...</div>';
+        this.reset();
+
+        setTimeout(function(){
+            window.location.href = "index.html";
+        }, 1200);
+    });
+}
+
 // =======================
 // UPLOAD KARYA (upload.html)
 // =======================
