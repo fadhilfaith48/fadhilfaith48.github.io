@@ -67,6 +67,26 @@ function getSemuaKarya() {
 }
 
 // =======================
+// FEEDBACK FITUR SIMULASI
+// =======================
+function simulasiInfo(link) {
+    const nama = link ? link.textContent.trim() : 'Fitur';
+    let box = document.getElementById('simulasiToast');
+    if (!box) {
+        box = document.createElement('div');
+        box.id = 'simulasiToast';
+        box.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:1080;max-width:92%;';
+        document.body.appendChild(box);
+    }
+    box.innerHTML = `<div class="alert alert-warning alert-dismissible fade show shadow" role="alert">
+        <i class="bi bi-info-circle me-1"></i>"${nama}" masih berupa simulasi untuk demo.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`;
+    setTimeout(() => { if (box.firstChild) box.firstChild.remove(); }, 3500);
+    return false;
+}
+
+// =======================
 // RENDER KARYA CARD
 // =======================
 function renderKarya(karyaArray, targetElementId) {
@@ -219,11 +239,11 @@ function renderProfilSiswa() {
             <p class="text-start fw-light fst-italic px-1 mt-1">${siswaData.bio}</p>
             <hr>
             <div class="d-grid gap-2 mt-2">
-                <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-envelope-fill me-1"></i>Hubungi Siswa</a>
-                <a href="#" class="btn btn-warning btn-sm"><i class="bi bi-star-fill me-1"></i>Favoritkan</a>
-                <a href="#" class="btn btn-success btn-sm"><i class="bi bi-share-fill me-1"></i>Bagikan Profil</a>
-                <a href="#" class="btn btn-info btn-sm text-white"><i class="bi bi-download me-1"></i>Download CV</a>
-                <a href="#" class="btn btn-secondary btn-sm"><i class="bi bi-cup-straw me-1"></i>Beri Apresiasi</a>
+                <a href="#" onclick="return simulasiInfo(this)" class="btn btn-outline-primary btn-sm"><i class="bi bi-envelope-fill me-1"></i>Hubungi Siswa</a>
+                <a href="#" onclick="return simulasiInfo(this)" class="btn btn-warning btn-sm"><i class="bi bi-star-fill me-1"></i>Favoritkan</a>
+                <a href="#" onclick="return simulasiInfo(this)" class="btn btn-success btn-sm"><i class="bi bi-share-fill me-1"></i>Bagikan Profil</a>
+                <a href="#" onclick="return simulasiInfo(this)" class="btn btn-info btn-sm text-white"><i class="bi bi-download me-1"></i>Download CV</a>
+                <a href="#" onclick="return simulasiInfo(this)" class="btn btn-secondary btn-sm"><i class="bi bi-cup-straw me-1"></i>Beri Apresiasi</a>
             </div>
         </div>
     `;
