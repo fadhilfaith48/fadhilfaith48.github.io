@@ -264,7 +264,7 @@ function renderProfilSiswa() {
 document.addEventListener('DOMContentLoaded', () => {
     // Beranda
     if (document.getElementById('karya-unggulan')) {
-        const karyaUnggulan = getSemuaKarya().slice(0, 3);
+        const karyaUnggulan = getSemuaKarya().slice().sort((a, b) => (b.likes || 0) - (a.likes || 0)).slice(0, 3);
         renderKarya(karyaUnggulan, 'karya-unggulan');
     }
     // Galeri
