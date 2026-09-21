@@ -3,102 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Siswa | Galeri Proyek</title>
+    <title>Profil Siswa - Seseorang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="assets/images/Gemini_Generated_Image_s8kdkds8kdkds8kd-removebg-preview.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="styles/custom.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    
-    <input type="checkbox" id="menu">
-    <header>
-        <div class="logo">
-            <i class="bi bi-mortarboard-fill" style="color: #312ECB; font-size: 35px;"></i>
-            <h1>SCHOOL <span>GALLERY</span></h1>
-        </div>
-        
-    <nav>
-    <a href="index.html">Beranda</a>
-    <a href="galeri.html">Galeri Karya</a>
-    <a href="profile.html" class="active">Profil Siswa</a> <a href="upload.html">Upload Karya</a>
-    <a href="login.html">Login</a>
-</nav>
-        
-        <label for="menu">
-            <div></div>
-            <div></div>
-            <div></div>
-        </label>
-    </header>
-
-    <div class="jumbotron-profile text-center text-white py-5 mb-5 animate__animated animate__fadeIn">
-        <div class="container" id="profile-header">
-            <div class="text-center py-5">
-                <div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div>
-                <p class="mt-2 text-light">Memuat data siswa...</p>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html">
+                <i class="bi bi-mortarboard-fill logoicon text-warning"></i>
+                <span>GALERI <span style="color:#ffeea8;">PROYEK</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavCustom" aria-controls="navbarNavCustom" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavCustom">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="bi bi-house-door-fill me-1"></i>Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="galeri.html"><i class="bi bi-image me-1"></i>Galeri Karya</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html"><i class="bi bi-person-fill me-1"></i>Profil Siswa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-login ms-lg-3 mt-2 mt-lg-0" href="#"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
+    </nav>
+    <!-- END NAVBAR -->
 
     <div class="container my-5">
-        
-        <div class="row text-center mb-4 g-3" id="siswa-stats">
+        <div class="row align-items-start">
+            <div class="col-lg-4" id="siswa-info">
+                <div class="card p-4 text-center sticky-top shadow-sm" style="top: 20px;">
+                    <img src="assets/images/default-profile.png" class="rounded-circle mx-auto d-block mb-3 profile-img" alt="Foto Profil" style="width: 150px; height: 150px; object-fit: cover;" data-bs-toggle="modal" data-bs-target="#profileImageModal">
+                    <h3 class="fw-bold">Seseorang</h3>
+                    <p class="text-muted mb-2">XI RPL 1 - Sains & Teknologi</p>
+                    <span class="badge bg-success mb-2">Siswa Terverifikasi</span>
+                    <p class="text-start fw-light fst-italic px-1 mt-2">Saya memiliki minat besar dalam pemrograman, fisika terapan, dan robotika.</p>
+                    <div class="d-grid gap-2 mt-3">
+                        <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-envelope-fill me-1"></i>Hubungi Siswa</a>
+                        <a href="#" class="btn btn-warning btn-sm"><i class="bi bi-star-fill me-1"></i>Favoritkan</a>
+                        <a href="#" class="btn btn-success btn-sm"><i class="bi bi-share-fill me-1"></i>Bagikan Profil</a>
+                        <a href="#" class="btn btn-info btn-sm text-white"><i class="bi bi-download me-1"></i>Download CV</a>
+                        <a href="#" class="btn btn-secondary btn-sm"><i class="bi bi-cup-straw me-1"></i>Beri Apresiasi</a>
+                    </div>
+                </div>
             </div>
-        
-        <hr class="my-5">
 
-        <h2 class="text-center mb-4">📚 Karya dari <span id="siswa-nama-karya-title" class="text-primary">Siswa Ini</span></h2>
-        
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="karya-siswa-list">
+            <div class="col-lg-8">
+                <h2 class="mb-3">Portofolio Karya Siswa</h2>
+                <hr>
+                <div class="row" id="karya-siswa-list">
+                    <!-- Nanti diisi otomatis pakai JS jika ada, dummy manual di bawah agar tampilan langsung bagus -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card card-karya h-100 shadow-sm border-light">
+                            <img src="assets/uploads/images.jpg" class="card-img-top" alt="Model Tata Surya Interaktif" style="height: 180px; object-fit: cover;">
+                            <div class="card-body">
+                                <span class="badge bg-secondary mb-2">Fisika</span>
+                                <h5 class="card-title mt-1">Model Tata Surya Interaktif</h5>
+                                <a href="detail-karya.html?id=1" class="btn btn-outline-primary btn-sm">Lihat Proyek</a>
+                                <span class="float-end text-danger"><i class="bi bi-heart-fill"></i> 45</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card card-karya h-100 shadow-sm border-light">
+                            <img src="https://via.placeholder.com/400x200?text=Karya+Informatika" class="card-img-top" alt="Aplikasi Kalkulator Sederhana" style="height: 180px; object-fit: cover;">
+                            <div class="card-body">
+                                <span class="badge bg-secondary mb-2">Informatika</span>
+                                <h5 class="card-title mt-1">Aplikasi Kalkulator Sederhana</h5>
+                                <a href="detail-karya.html?id=3" class="btn btn-outline-primary btn-sm">Lihat Proyek</a>
+                                <span class="float-end text-danger"><i class="bi bi-heart-fill"></i> 30</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card card-karya h-100 shadow-sm border-light">
+                            <img src="https://via.placeholder.com/400x200?text=Karya+Seni" class="card-img-top" alt="Lukisan Abstrak 'Kehidupan Kota'" style="height: 180px; object-fit: cover;">
+                            <div class="card-body">
+                                <span class="badge bg-secondary mb-2">Seni Rupa</span>
+                                <h5 class="card-title mt-1">Lukisan Abstrak "Kehidupan Kota"</h5>
+                                <a href="detail-karya.html?id=4" class="btn btn-outline-primary btn-sm">Lihat Proyek</a>
+                                <span class="float-end text-danger"><i class="bi bi-heart-fill"></i> 105</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card card-karya h-100 shadow-sm border-light">
+                            <img src="assets/uploads/Dampak-AI-dipendidikan.pdf" class="card-img-top" alt="Esai: Dampak AI pada Pendidikan" style="height: 180px; object-fit: cover;">
+                            <div class="card-body">
+                                <span class="badge bg-secondary mb-2">B. Indonesia</span>
+                                <h5 class="card-title mt-1">Esai: Dampak AI pada Pendidikan</h5>
+                                <a href="detail-karya.html?id=2" class="btn btn-outline-primary btn-sm">Lihat Proyek</a>
+                                <span class="float-end text-danger"><i class="bi bi-heart-fill"></i> 62</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card card-karya h-100 shadow-sm border-light">
+                            <img src="https://via.placeholder.com/400x200/33FF57/FFFFFF?text=Dokumen+PDF+2" class="card-img-top" alt="Makalah Sejarah Kerajaan Majapahit" style="height: 180px; object-fit: cover;">
+                            <div class="card-body">
+                                <span class="badge bg-secondary mb-2">Sejarah</span>
+                                <h5 class="card-title mt-1">Makalah Sejarah Kerajaan Majapahit</h5>
+                                <a href="detail-karya.html?id=5" class="btn btn-outline-primary btn-sm">Lihat Proyek</a>
+                                <span class="float-end text-danger"><i class="bi bi-heart-fill"></i> 21</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p id="noKarya" class="text-center mt-5" style="display:none;">Siswa ini belum memiliki karya yang dipublikasikan.</p>
             </div>
-
-        <div id="noKarya" class="alert alert-info text-center mt-5" style="display:none;">
-            Siswa ini belum memiliki karya yang diunggah.
         </div>
-        
     </div>
-
+    <!-- Modal foto profil -->
     <div class="modal fade" id="profileImageModal" tabindex="-1" aria-labelledby="profileImageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="profileImageModalLabel">Foto Profil</h5>
+                    <h5 class="modal-title" id="profileImageModalLabel">Foto Profil - Seseorang</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img id="modalProfileImage" src="" class="img-fluid rounded" alt="Foto Profil Besar">
+                    <img src="assets/images/default-profile.png" id="modalProfileImage" class="img-fluid" alt="Foto Profil Besar">
                 </div>
             </div>
         </div>
     </div>
 
     <footer class="bg-light text-center py-3 mt-5">
-        <p class="mb-0 text-muted">&copy; 2025 Galeri Proyek Sekolah.</p>
+        <p class="mb-0 text-muted">&copy; 2025 Galeri Proyek Siswa Sekolah.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts/main.js"></script> 
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const body = document.body;
-            
-            // Menggunakan event delegation karena elemen .profile-img dimuat oleh JS
-            body.addEventListener('click', (e) => {
-                if (e.target.classList.contains('profile-img')) {
-                    const profileImage = e.target;
-                    const modalImage = document.getElementById('modalProfileImage');
-                    
-                    if (modalImage) {
-                        modalImage.src = profileImage.src;
-                        // Opsi: mengatur judul modal agar lebih informatif
-                        document.getElementById('profileImageModalLabel').textContent = `Foto Profil ${profileImage.alt.replace('Foto Profil ', '')}`;
-                    }
-                }
-            });
-        });
-    </script>
+    <script src="scripts/main.js"></script>
 </body>
 </html>

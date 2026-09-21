@@ -1,5 +1,5 @@
 
-//* SIMULASI DATA KARYA SISWA
+// SIMULASI DATA KARYA SISWA
 const dataKarya = [
     { id: 1, judul: "Model Tata Surya Interaktif", siswa: "Andi Wijaya", kelas: "XII IPA 1", kategori: "Fisika", tipe: "image", file: "https://via.placeholder.com/400x200?text=Karya+Fisika", likes: 45, deskripsi: "Model 3D yang dibuat menggunakan Arduino dan motor servo. Proyek ini memenangkan kompetisi sains sekolah tahun ini." },
     { id: 2, judul: "Esai: Dampak AI pada Pendidikan", siswa: "Budi Santoso", kelas: "XI IPS 2", kategori: "B. Indonesia", tipe: "pdf", file: "https://via.placeholder.com/400x200?text=Karya+Esai", likes: 62, deskripsi: "Analisis mendalam tentang masa depan guru dan siswa di era kecerdasan buatan, termasuk studi kasus di beberapa negara Asia." },
