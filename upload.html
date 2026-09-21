@@ -66,6 +66,10 @@
                                 <input type="url" class="form-control" id="gambar" name="gambar" placeholder="https://contoh.com/gambar.jpg" required>
                                 <div class="form-text">Masukkan link gambar online, atau gunakan <span class="fst-italic">placeholder</span> jika hanya demo.</div>
                             </div>
+                            <div class="mb-3">
+                                <label for="siswa" class="form-label fw-semibold">Nama Siswa <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="siswa" name="siswa" placeholder="Contoh: Fadhil Faith" required>
+                            </div>
                             <!-- Pilihan kategori dan kelas, opsional -->
                             <div class="mb-3">
                                 <label for="kategori" class="form-label fw-semibold">Kategori Proyek</label>
@@ -73,8 +77,9 @@
                                     <option value="" disabled selected>Pilih kategori karya</option>
                                     <option value="Fisika">Fisika</option>
                                     <option value="Informatika">Informatika</option>
-                                    <option value="Seni">Seni</option>
+                                    <option value="Seni Rupa">Seni Rupa</option>
                                     <option value="Sejarah">Sejarah</option>
+                                    <option value="B. Indonesia">B. Indonesia</option>
                                     <option value="Lainnya">Lainnya</option>
                                 </select>
                             </div>
@@ -87,6 +92,7 @@
                                     <option value="XII">XII</option>
                                 </select>
                             </div>
+                            <div id="formAlert" class="mb-3"></div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary btn-lg">
                                     <i class="bi bi-send-fill me-1"></i>
@@ -108,7 +114,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts/main.js"></script> <!-- file js custom Anda, silakan update -->
-    <!-- Tambahkan JS form handler Anda di sini -->
+    <script src="scripts/main.js"></script>
 </body>
 </html>
