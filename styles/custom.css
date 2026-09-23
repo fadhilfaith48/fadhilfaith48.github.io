@@ -612,6 +612,16 @@ body.modal-open{overflow:hidden}
 .kontak-row .btn{margin-left:auto}
 
 /* ================================
+   GERBANG UPLOAD (wajib login)
+   ================================ */
+.upload-gate{text-align:center;padding:clamp(2rem,5vw,3.4rem) clamp(1.5rem,4vw,3rem)}
+.upload-gate svg{color:var(--accent);margin:0 auto 1.1rem;display:block}
+.upload-gate__title{font-size:1.7rem;margin:0 0 .8rem}
+.upload-gate p{max-width:48ch;margin:0 auto 1.7rem;color:var(--ink-2)}
+.upload-gate .form-actions{justify-content:center}
+[hidden]{display:none !important}
+
+/* ================================
    LAIN-LAIN
    ================================ */
 .loading-note{text-align:center;padding:3.4rem 0;color:var(--muted)}

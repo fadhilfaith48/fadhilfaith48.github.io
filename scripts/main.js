@@ -522,8 +522,39 @@ function initReveals() {
 }
 
 // =======================
+// GERBANG UPLOAD (wajib login)
+// =======================
+function initUploadGate() {
+    const form = document.getElementById('uploadKaryaForm');
+    if (!form) return;
+    const gate = document.getElementById('uploadGate');
+    const sesi = getSesi();
+    if (!sesi) {
+        if (gate) gate.hidden = false;
+        form.hidden = true;
+        localStorage.setItem('galeriRedirect', 'upload.html');
+        return;
+    }
+    if (gate) gate.hidden = true;
+    // Isi otomatis nama & kelas dari sesi
+    const siswa = document.getElementById('siswa');
+    const kelas = document.getElementById('kelas');
+    if (sesi.nama && siswa) siswa.value = sesi.nama;
+    if (sesi.kelas && kelas) {
+        const ada = Array.from(kelas.options).some(o => o.value === sesi.kelas);
+        if (ada) kelas.value = sesi.kelas;
+    }
+}
+
+// =======================
 // LOGIN / DAFTAR / LUPA
 // =======================
+function redirectSetelahLogin() {
+    const param = new URLSearchParams(location.search).get('next');
+    const simpan = localStorage.getItem('galeriRedirect');
+    localStorage.removeItem('galeriRedirect');
+    return param || simpan || 'index.html';
+}
 function initPanelSwitch() {
     document.addEventListener('click', e => {
         const sw = e.target.closest('[data-switch]');
@@ -533,6 +564,13 @@ function initPanelSwitch() {
         const target = document.getElementById(sw.getAttribute('data-switch'));
         if (target) target.classList.add('is-active');
     });
+    // Buka panel tertentu lewat ?panel=register
+    const panel = new URLSearchParams(location.search).get('panel');
+    if (panel === 'register') {
+        document.querySelectorAll('.login-panel').forEach(p => p.classList.remove('is-active'));
+        const reg = document.getElementById('registerForm');
+        if (reg) reg.classList.add('is-active');
+    }
 }
 function initLoginForm() {
     const form = document.getElementById('loginForm');
@@ -552,7 +590,7 @@ function initLoginForm() {
         setSesi({ nama, email, kelas: akun ? akun.kelas : '', masuk: Date.now() });
         box.innerHTML = '<div class="alert alert-success">Login berhasil! Mengarahkan ke beranda...</div>';
         form.reset();
-        setTimeout(() => { location.href = 'index.html'; }, 1000);
+        setTimeout(() => { location.href = redirectSetelahLogin(); }, 1000);
     });
 }
 function initRegisterForm() {
@@ -575,7 +613,7 @@ function initRegisterForm() {
         simpanLok('galeriAkun', akun);
         setSesi({ nama, email, kelas, masuk: Date.now() });
         box.innerHTML = '<div class="alert alert-success">Akun dibuat & login! Mengarahkan ke beranda...</div>';
-        setTimeout(() => { location.href = 'index.html'; }, 1000);
+        setTimeout(() => { location.href = redirectSetelahLogin(); }, 1000);
     });
 }
 function initForgotForm() {
@@ -689,6 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProfilSiswa();
     renderKomentar(parseInt(getUrlParameter('id'), 10));
 
+    initUploadGate();
     initUploadForm();
     initLoginForm();
     initRegisterForm();

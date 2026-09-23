@@ -48,8 +48,21 @@
             <header class="page-head center-text reveal">
                 <p class="page-head__kicker">Formulir karya</p>
                 <h1>Kirim karya <em>baru</em></h1>
-                <p class="page-head__lead muted" style="margin:0 auto;">Lengkapi data karya Anda. Saat ini isi URL gambar/poster — dukungan unggah file akan hadir pada rilis berikutnya.</p>
+                <p class="page-head__lead muted" style="margin:0 auto;">Login dulu untuk mengunggah. Isi judul &amp; deskripsi, lalu unggah file gambar/PDF dari perangkat, atau tempel URL gambar.</p>
             </header>
+
+            <div id="uploadGate" class="card-panel upload-gate" hidden>
+                <svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                    <rect x="4.5" y="11" width="15" height="9" rx="1"></rect>
+                    <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+                </svg>
+                <h3 class="upload-gate__title">Area ini khusus anggota</h3>
+                <p>Masuk ke akun Anda untuk mengunggah karya ke galeri. Belum punya akun? Daftar dulu — hanya butuh beberapa detik.</p>
+                <div class="form-actions">
+                    <a class="btn btn-lg" href="login.html?next=upload.html">Masuk</a>
+                    <a class="btn btn-outline btn-lg" href="login.html?next=upload.html&amp;panel=register">Daftar</a>
+                </div>
+            </div>
 
             <form id="uploadKaryaForm" class="card-panel upload-form reveal">
                 <label class="field">
