@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Siswa — Fadhil Faith</title>
-    <meta name="description" content="Profil siswa Fadhil Faith (XI RPL 1) — portofolio karya di bidang robotika, informatika, dan seni rupa.">
+    <title>Karya Favorit — Galeri Proyek</title>
+    <meta name="description" content="Kumpulan karya dari siswa yang Anda favoritkan di Galeri Proyek Siswa.">
     <link rel="stylesheet" href="styles/custom.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
         <div class="top-strip">
             <div class="container">
                 <span>Galeri Proyek Sekolah</span>
-                <span class="top-strip__right">Sesi 2025–2026 · Profil siswa</span>
+                <span class="top-strip__right">Sesi 2025–2026 · Katalog pribadi</span>
             </div>
         </div>
         <nav class="main-nav navbar-custom" aria-label="Navigasi utama">
@@ -44,47 +44,24 @@
     </header>
     <!-- END MASTHEAD -->
 
-    <main id="main" class="section">
-        <div class="container">
-            <div class="backlink reveal">
-                <a class="btn btn-ghost btn-sm" href="galeri.html"><span aria-hidden="true">←</span> Kembali ke galeri</a>
-            </div>
+    <main id="main">
+        <div class="container section">
+            <header class="page-head reveal">
+                <p class="page-head__kicker">Katalog pribadi Anda</p>
+                <h1>Karya <em>favorit</em></h1>
+                <p class="page-head__lead muted">Semua karya dari siswa yang Anda favoritkan, terkumpul di satu tempat perangkat ini.</p>
+                <p class="mono muted" id="favoritCount" style="margin:1rem 0 0;">0 karya tersimpan</p>
+            </header>
 
-            <div class="profile-grid">
-                <div id="siswa-info" class="profile-grid__side"></div>
+            <div id="galeri-favorit" class="masonry" aria-live="polite"></div>
 
-                <div class="profile-grid__main">
-                    <header class="section-head reveal">
-                        <div>
-                            <span class="section-head__lab">Portofolio siswa</span>
-                            <h2>Karya yang dipublikasikan</h2>
-                        </div>
-                    </header>
-                    <div id="karya-siswa-list" class="masonry" aria-live="polite"></div>
-                    <p id="noKarya" class="empty-state" style="display:none;">Siswa ini belum memiliki karya yang dipublikasikan.</p>
-                </div>
-            </div>
+            <p id="favoritEmpty" class="empty-state" style="display:none;">
+                Belum ada favorit.<br>
+                Buka <a class="text-link" href="profile.html">halaman profil siswa</a>, lalu tekan
+                <strong>★ Favoritkan</strong> untuk menyimpannya di sini.
+            </p>
         </div>
     </main>
-
-    <!-- Modal foto profil -->
-    <div class="modal" id="profileImageModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="profileImageModalLabel">
-        <div class="modal__backdrop" data-close-zoom></div>
-        <div class="modal__panel" role="document">
-            <h2 id="profileImageModalLabel" class="visually-hidden">Foto profil diperbesar</h2>
-            <button type="button" class="modal__close" aria-label="Tutup">×</button>
-            <img src="assets/images/default-profile.png" id="modalProfileImage" alt="Foto profil besar">
-        </div>
-    </div>
-
-    <!-- Modal kontak siswa -->
-    <div class="modal" id="kontakModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="kontakModalLabel">
-        <div class="modal__backdrop" data-close-zoom></div>
-        <div class="modal__panel" role="document">
-            <button type="button" class="modal__close" aria-label="Tutup">×</button>
-            <div id="kontakModalBody"></div>
-        </div>
-    </div>
 
     <footer class="site-footer">
         <div class="container site-footer__inner">

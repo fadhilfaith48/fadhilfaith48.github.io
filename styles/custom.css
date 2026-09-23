@@ -622,6 +622,16 @@ body.modal-open{overflow:hidden}
 [hidden]{display:none !important}
 
 /* ================================
+   KARTU FAVORIT (hapus cepat)
+   ================================ */
+.karya-card__fav{
+  margin-top:.7rem;width:100%;justify-content:flex-start;
+  border-top:1px dashed var(--line-2);
+  border-radius:0;
+}
+.karya-card__fav:hover{border-top-color:var(--accent)}
+
+/* ================================
    LAIN-LAIN
    ================================ */
 .loading-note{text-align:center;padding:3.4rem 0;color:var(--muted)}

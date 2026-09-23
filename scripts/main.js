@@ -522,6 +522,42 @@ function initReveals() {
 }
 
 // =======================
+// HALAMAN FAVORIT
+// =======================
+function renderKaryaFavorit() {
+    const container = document.getElementById('galeri-favorit');
+    const empty = document.getElementById('favoritEmpty');
+    const count = document.getElementById('favoritCount');
+    if (!container) return;
+    const fav = bacaLok('galeriFavorit', []);
+    const karya = getSemuaKarya().filter(k => fav.includes(k.siswa));
+    container.innerHTML = karya.map(k => `
+        <article class="karya-card">
+            <a class="karya-card__link" href="detail-karya.html?id=${k.id}" aria-label="${esc(k.judul)} — lihat detail">Lihat detail</a>
+            ${kartuMedia(k)}
+            <div class="karya-card__body">
+                <span class="tag">${esc(k.kategori)}</span>
+                <h3 class="karya-card__title">${esc(k.judul)}</h3>
+                <p class="karya-card__meta">
+                    <span>${esc(k.siswa)} · ${esc(k.kelas)}</span>
+                    <span class="like-num">♥ ${effLikes(k)}</span>
+                </p>
+                <button type="button" class="btn btn-ghost btn-sm karya-card__fav" data-unfav="${esc(k.siswa)}">★ Hapus dari favorit</button>
+            </div>
+        </article>`).join('');
+    if (count) count.textContent = karya.length + ' karya tersimpan';
+    if (empty) empty.style.display = karya.length ? 'none' : 'block';
+    container.querySelectorAll('[data-unfav]').forEach(b => b.addEventListener('click', () => {
+        const nama = b.getAttribute('data-unfav');
+        const f = bacaLok('galeriFavorit', []);
+        const i = f.indexOf(nama);
+        if (i > -1) { f.splice(i, 1); simpanLok('galeriFavorit', f); }
+        renderKaryaFavorit();
+        toastPesan('Dihapus dari favorit.');
+    }));
+}
+
+// =======================
 // GERBANG UPLOAD (wajib login)
 // =======================
 function initUploadGate() {
@@ -725,6 +761,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderDetailKarya();
     renderProfilSiswa();
+    renderKaryaFavorit();
     renderKomentar(parseInt(getUrlParameter('id'), 10));
 
     initUploadGate();
