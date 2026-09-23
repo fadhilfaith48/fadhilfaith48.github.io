@@ -35,7 +35,7 @@
                         <li class="nav-item"><a class="nav-link" href="galeri.html">Galeri</a></li>
                         <li class="nav-item"><a class="nav-link" href="profile.html">Profil</a></li>
                         <li class="nav-item"><a class="nav-link" href="upload.html">Tambah Karya</a></li>
-                        <li class="nav-item nav-item--cta"><a class="btn btn-outline btn-sm" href="login.html">Masuk</a></li>
+                        <li class="nav-item nav-item--cta" id="navSesi"><a class="btn btn-outline btn-sm" href="login.html">Masuk</a></li>
                     </ul>
                 </div>
             </div>
@@ -68,9 +68,16 @@
                 </label>
 
                 <label class="field field--full">
-                    <span class="field__label">URL gambar / poster <span class="req" aria-hidden="true">*</span></span>
-                    <input type="url" class="input" id="gambar" name="gambar" placeholder="https://contoh.com/gambar.jpg" required>
-                    <span class="field__hint">Link gambar online dengan akhiran .jpg / .png / .gif / .webp</span>
+                    <span class="field__label">Unggah file karya (gambar / PDF) <span class="req" aria-hidden="true">*</span></span>
+                    <input type="file" class="input" id="fileKarya" accept=".jpg,.jpeg,.png,.gif,.webp,.pdf">
+                    <span class="field__hint">File gambar atau PDF dari perangkat Anda. Maksimal ±2,5 MB agar aman disimpan di browser.</span>
+                    <div class="upload-preview" id="uploadPreview"></div>
+                </label>
+
+                <label class="field field--full">
+                    <span class="field__label">— atau tempel URL gambar / poster —</span>
+                    <input type="url" class="input" id="gambar" name="gambar" placeholder="https://contoh.com/gambar.jpg">
+                    <span class="field__hint">Isi URL gambar online jika tidak mengunggah file. Link harus berakhiran .jpg / .png / .gif / .webp.</span>
                 </label>
 
                 <label class="field">

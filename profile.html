@@ -35,7 +35,7 @@
                         <li class="nav-item"><a class="nav-link" href="galeri.html">Galeri</a></li>
                         <li class="nav-item"><a class="nav-link" href="profile.html">Profil</a></li>
                         <li class="nav-item"><a class="nav-link" href="upload.html">Tambah Karya</a></li>
-                        <li class="nav-item nav-item--cta"><a class="btn btn-outline btn-sm" href="login.html">Masuk</a></li>
+                        <li class="nav-item nav-item--cta" id="navSesi"><a class="btn btn-outline btn-sm" href="login.html">Masuk</a></li>
                     </ul>
                 </div>
             </div>
@@ -73,6 +73,15 @@
             <h2 id="profileImageModalLabel" class="visually-hidden">Foto profil diperbesar</h2>
             <button type="button" class="modal__close" aria-label="Tutup">×</button>
             <img src="assets/images/default-profile.png" id="modalProfileImage" alt="Foto profil besar">
+        </div>
+    </div>
+
+    <!-- Modal kontak siswa -->
+    <div class="modal" id="kontakModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="kontakModalLabel">
+        <div class="modal__backdrop" data-close-zoom></div>
+        <div class="modal__panel" role="document">
+            <button type="button" class="modal__close" aria-label="Tutup">×</button>
+            <div id="kontakModalBody"></div>
         </div>
     </div>
 

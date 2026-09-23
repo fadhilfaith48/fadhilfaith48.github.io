@@ -35,7 +35,7 @@
                         <li class="nav-item"><a class="nav-link" href="galeri.html">Galeri</a></li>
                         <li class="nav-item"><a class="nav-link" href="profile.html">Profil</a></li>
                         <li class="nav-item"><a class="nav-link" href="upload.html">Tambah Karya</a></li>
-                        <li class="nav-item nav-item--cta"><a class="btn btn-outline btn-sm" href="login.html">Masuk</a></li>
+                        <li class="nav-item nav-item--cta" id="navSesi"><a class="btn btn-outline btn-sm" href="login.html">Masuk</a></li>
                     </ul>
                 </div>
             </div>
@@ -63,24 +63,20 @@
                     </div>
                 </header>
 
-                <div class="comment-list">
-                    <div class="comment">
-                        <p class="comment__meta"><strong>Bambang S.</strong> · Guru</p>
-                        <p class="comment__body">Proyek ini sangat inovatif! Penggunaan Arduino-nya sangat rapi.</p>
-                    </div>
-                    <div class="comment">
-                        <p class="comment__meta"><strong>Siti K.</strong> · Siswa</p>
-                        <p class="comment__body">Salut! Inspiratif banget, aku mau coba bikin versi lain.</p>
-                    </div>
-                </div>
+                <div id="commentList" class="comment-list"></div>
 
-                <form class="comment-form">
-                    <label class="field">
-                        <span class="field__label">Tulis komentar Anda</span>
-                        <textarea class="textarea" rows="3" placeholder="Tulis komentar/apresiasi… (diaktifkan pada pembaruan berikutnya)"></textarea>
-                    </label>
-                    <button type="submit" class="btn" disabled>Kirim komentar</button>
-                    <span class="field__hint">Formulir komentar akan diaktifkan pada rilis berikutnya.</span>
+                <form class="comment-form" id="commentForm">
+                    <div class="comment-form__row">
+                        <label class="field">
+                            <span class="field__label">Nama Anda</span>
+                            <input type="text" class="input" id="commentNama" placeholder="Tamu anonim">
+                        </label>
+                        <label class="field">
+                            <span class="field__label">Tulis komentar Anda</span>
+                            <textarea class="textarea" id="commentBaru" rows="2" placeholder="Tulis komentar/apresiasi Anda…" required></textarea>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn">Kirim komentar</button>
                 </form>
             </section>
         </div>

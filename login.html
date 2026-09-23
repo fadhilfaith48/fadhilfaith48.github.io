@@ -35,7 +35,7 @@
                         <li class="nav-item"><a class="nav-link" href="galeri.html">Galeri</a></li>
                         <li class="nav-item"><a class="nav-link" href="profile.html">Profil</a></li>
                         <li class="nav-item"><a class="nav-link" href="upload.html">Tambah Karya</a></li>
-                        <li class="nav-item nav-item--cta"><a class="btn btn-outline btn-sm" href="login.html">Masuk</a></li>
+                        <li class="nav-item nav-item--cta" id="navSesi"><a class="btn btn-outline btn-sm" href="login.html">Masuk</a></li>
                     </ul>
                 </div>
             </div>
@@ -57,7 +57,7 @@
             </div>
 
             <div class="split__panel">
-                <form id="loginForm" class="card-panel reveal" novalidate>
+                <form id="loginForm" class="card-panel login-panel is-active reveal" novalidate>
                     <h3 class="card-panel__title">Selamat datang kembali</h3>
 
                     <label class="field">
@@ -66,20 +66,74 @@
                     </label>
                     <label class="field">
                         <span class="field__label">Kata sandi <span class="req" aria-hidden="true">*</span></span>
-                        <input type="password" class="input" id="password" name="password" placeholder="Masukkan kata sandi" required>
+                        <input type="password" class="input" id="password" name="password" placeholder="Minimal 6 karakter" required>
                     </label>
 
                     <div id="loginAlert"></div>
 
                     <div class="form-actions">
                         <button type="submit" class="btn btn-lg">Masuk</button>
-                        <a href="#" onclick="return simulasiInfo(this)" class="btn btn-ghost">Lupa password? <span class="mono muted">(simulasi)</span></a>
+                        <button type="button" class="btn btn-ghost" data-switch="forgotPanel">Lupa password?</button>
                     </div>
 
                     <hr class="rule">
 
-                    <p class="muted">Belum punya akun? <a href="#" onclick="return simulasiInfo(this)" class="text-link">Daftar sekarang <span class="mono">(simulasi)</span></a></p>
+                    <p class="panel-switch muted">Belum punya akun? <a href="#" class="text-link" data-switch="registerForm">Daftar sekarang</a></p>
                 </form>
+
+                <form id="registerForm" class="card-panel login-panel reveal" novalidate>
+                    <h3 class="card-panel__title">Buat akun <em style="font-style:italic;color:var(--accent)">baru</em></h3>
+
+                    <label class="field">
+                        <span class="field__label">Nama lengkap <span class="req" aria-hidden="true">*</span></span>
+                        <input type="text" class="input" id="regNama" placeholder="mis. Fadhil Faith" required>
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Surel <span class="req" aria-hidden="true">*</span></span>
+                        <input type="email" class="input" id="regEmail" placeholder="nama.siswa@sekolah.sch.id" required>
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Kata sandi <span class="req" aria-hidden="true">*</span></span>
+                        <input type="password" class="input" id="regPassword" placeholder="Minimal 6 karakter" required>
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Kelas</span>
+                        <select id="regKelas" class="input select">
+                            <option value="" disabled selected>Pilih kelas</option>
+                            <option value="X">X</option>
+                            <option value="XI">XI</option>
+                            <option value="XII">XII</option>
+                        </select>
+                    </label>
+
+                    <div id="registerAlert"></div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-lg">Daftar &amp; masuk</button>
+                    </div>
+
+                    <hr class="rule">
+
+                    <p class="panel-switch muted">Sudah punya akun? <a href="#" class="text-link" data-switch="loginForm">Masuk</a></p>
+                </form>
+
+                <div id="forgotPanel" class="card-panel login-panel reveal">
+                    <h3 class="card-panel__title">Pulihkan <em style="font-style:italic;color:var(--accent)">kata sandi</em></h3>
+
+                    <p class="muted">Masukkan surel akun Anda. Pada demo ini, tautan pemulihan dikirim ke surel yang dikenali sistem.</p>
+
+                    <label class="field">
+                        <span class="field__label">Surel terdaftar</span>
+                        <input type="email" class="input" id="lupaEmail" placeholder="nama.siswa@sekolah.sch.id">
+                    </label>
+
+                    <div id="forgotAlert"></div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-lg" id="lupaSubmit">Kirim tautan pemulihan</button>
+                        <button type="button" class="btn btn-ghost" data-switch="loginForm">Kembali</button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>

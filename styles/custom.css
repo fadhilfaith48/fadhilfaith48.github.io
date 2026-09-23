@@ -533,6 +533,85 @@ body.modal-open{overflow:hidden}
 .toast-note__close:hover{color:var(--accent)}
 
 /* ================================
+   SESI NAVBAR (login/logout)
+   ================================ */
+.nav-cta-wrap{display:flex;align-items:center;gap:8px}
+.sesi-chip{
+  display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+  padding:.3rem .6rem;border:1px solid var(--line-2);background:var(--card);color:var(--ink);
+  transition:border-color .2s;
+}
+.sesi-chip:hover{border-color:var(--accent)}
+.sesi-chip__ava{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:27px;height:27px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  font-family:var(--font-mono);font-size:.76rem;font-weight:600;
+}
+.sesi-chip__nama{font-family:var(--font-mono);font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+@media (max-width:899px){
+  .nav-cta-wrap{width:100%}
+  .nav-cta-wrap .btn{flex:1;max-width:200px}
+}
+
+/* ================================
+   TOMBOL SUKA (aktif)
+   ================================ */
+.btn-like.is-liked{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-like.is-liked:hover{background:var(--accent-2);border-color:var(--accent-2)}
+
+/* ================================
+   KOMENTAR (aktif)
+   ================================ */
+.comment__row{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:.4rem}
+.comment__meta{margin:0}
+.comment__time{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.04em;color:var(--muted);white-space:nowrap}
+.comment__del{
+  display:inline-block;margin-top:.5rem;
+  background:none;border:none;padding:0;
+  font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px;
+}
+.comment__del:hover{color:var(--accent)}
+.comment-form__row{display:grid;grid-template-columns:1fr 2fr;gap:16px}
+@media (max-width:600px){.comment-form__row{grid-template-columns:1fr}}
+
+/* ================================
+   PANEL LOGIN (daftar / lupa)
+   ================================ */
+.login-panel{display:none}
+.login-panel.is-active{display:block}
+.panel-switch{margin-top:1rem}
+.panel-switch a{cursor:pointer}
+
+/* ================================
+   UPLOAD FILE
+   ================================ */
+.field .input[type="file"]{
+  border-bottom:2px dashed var(--line-2);
+  padding:.75rem 0;cursor:pointer;
+}
+.field .input[type="file"]::file-selector-button{
+  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--ink);color:var(--card);border:none;padding:.5rem .9rem;cursor:pointer;margin-right:1rem;
+}
+.field .input[type="file"]::file-selector-button:hover{background:var(--accent)}
+.upload-preview{margin:.6rem 0 1rem}
+.upload-preview img{max-width:220px;max-height:150px;object-fit:cover;border:1px solid var(--line)}
+.upload-preview .pdf-tag{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-2)}
+
+/* ================================
+   KONTAK MODAL
+   ================================ */
+.kontak-row{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:.75rem 0;border-bottom:1px dashed var(--line-2);
+}
+.kontak-row .mono{color:var(--muted);min-width:92px;text-transform:uppercase;font-size:.7rem;letter-spacing:.08em}
+.kontak-row strong{font-family:var(--font-mono);font-weight:500;font-size:.82rem}
+.kontak-row .btn{margin-left:auto}
+
+/* ================================
    LAIN-LAIN
    ================================ */
 .loading-note{text-align:center;padding:3.4rem 0;color:var(--muted)}
