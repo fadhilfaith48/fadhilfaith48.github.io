@@ -3,104 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Siswa - Galeri Proyek</title>
+    <title>Login Siswa — Galeri Proyek</title>
     <meta name="description" content="Masuk ke Galeri Proyek Siswa untuk mengelola dan mengunggah karya.">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="assets/images/Gemini_Generated_Image_s8kdkds8kdkds8kd-removebg-preview.png">
-    <link rel="stylesheet" href="styles/custom.css"> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="styles/custom.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html">
-                <i class="bi bi-mortarboard-fill logoicon text-warning"></i>
-                <span>GALERI <span style="color:#ffeea8;">PROYEK</span></span>
-            </a>
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavCustom" aria-controls="navbarNavCustom" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavCustom">
-                <ul class="navbar-nav ms-auto align-items-lg-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html"><i class="bi bi-house-door-fill me-1"></i>Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="galeri.html"><i class="bi bi-image me-1"></i>Galeri Karya</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="profile.html"><i class="bi bi-person-fill me-1"></i>Profil Siswa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="upload.html"><i class="bi bi-plus-square-fill me-1"></i>Tambah Karya</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-login ms-lg-3 mt-2 mt-lg-0" href="login.html"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
-                    </li>
-                </ul>
+    <a class="skip-link" href="#main">Langsung ke konten</a>
+
+    <!-- MASTHEAD -->
+    <header class="masthead">
+        <div class="top-strip">
+            <div class="container">
+                <span>Galeri Proyek Sekolah</span>
+                <span class="top-strip__right">Sesi 2025–2026 · Area anggota</span>
             </div>
         </div>
-    </nav>
-    <div class="container py-5 mt-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-7">
-                <div class="card shadow-lg border-0">
-                    <div class="card-body p-4 p-md-5">
-                        <h2 class="mb-4 text-center fw-bold text-primary">
-                            <span style="font-size: 2rem;">👋</span> Selamat Datang
-                        </h2>
-                        
-                        <form id="loginForm">
-                            <div class="mb-3">
-                                <input 
-                                    type="email" 
-                                    class="form-control form-control-lg" 
-                                    id="email" 
-                                    name="email" 
-                                    placeholder="Contoh: nama.siswa@sekolah.sch.id" 
-                                    required
-                                >
-                            </div>
-                            <div class="mb-4">
-                                <input 
-                                    type="password" 
-                                    class="form-control form-control-lg" 
-                                    id="password" 
-                                    name="password" 
-                                    placeholder="Masukkan kata sandi Anda" 
-                                    required
-                                >
-                            </div>
-                            
-                            <div id="loginAlert" class="mb-3"></div>
-
-                            <div class="d-grid mb-3">
-                                <button type="submit" class="btn btn-primary btn-lg">
-                                    <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
-                                </button>
-                            </div>
-
-                            <p class="text-center">
-                                <a href="#" onclick="return simulasiInfo(this)" class="text-secondary text-decoration-none">Lupa Password? (Simulasi)</a>
-                            </p>
-
-                            <hr>
-                            <p class="text-center mb-0">
-                                Belum punya akun? <a href="#" onclick="return simulasiInfo(this)" class="fw-bold text-primary">Daftar Sekarang (Simulasi)</a>
-                            </p>
-
-                        </form>
-                    </div>
+        <nav class="main-nav navbar-custom" aria-label="Navigasi utama">
+            <div class="container nav-container">
+                <a class="brand" href="index.html" aria-label="Beranda Galeri Proyek">
+                    <span class="brand-mark" aria-hidden="true"></span>
+                    <span class="brand-word">Galeri<span class="brand-word--accent">Proyek</span></span>
+                </a>
+                <input type="checkbox" id="nav-toggle" class="nav-toggle">
+                <label for="nav-toggle" class="nav-burger" aria-label="Buka menu navigasi">
+                    <span class="nav-burger__line"></span>
+                    <span class="nav-burger__line"></span>
+                </label>
+                <div class="nav-panel">
+                    <ul class="nav-list">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
+                        <li class="nav-item"><a class="nav-link" href="galeri.html">Galeri</a></li>
+                        <li class="nav-item"><a class="nav-link" href="profile.html">Profil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="upload.html">Tambah Karya</a></li>
+                        <li class="nav-item nav-item--cta"><a class="btn btn-outline btn-sm" href="login.html">Masuk</a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </div>
+        </nav>
+    </header>
+    <!-- END MASTHEAD -->
 
-    <footer class="bg-light text-center py-3 mt-5">
-        <p class="mb-0 text-muted">&copy; 2026 Galeri Proyek Siswa Sekolah.</p>
+    <main id="main">
+        <section class="split">
+            <div class="split__aside">
+                <p class="split__mono mono reveal">Area anggota</p>
+                <h2 class="split__title reveal">Masuk untuk <em>memamerkan</em> karya Anda.</h2>
+                <p class="split__text muted reveal">Login merupakan simulasi demo. Akun, unggahan, dan apresiasi tersimpan aman di perangkat ini.</p>
+                <ul class="split__list reveal">
+                    <li>Unggah karya baru</li>
+                    <li>Terima apresiasi pengunjung</li>
+                    <li>Kelola profil &amp; portofolio</li>
+                </ul>
+            </div>
+
+            <div class="split__panel">
+                <form id="loginForm" class="card-panel reveal" novalidate>
+                    <h3 class="card-panel__title">Selamat datang kembali</h3>
+
+                    <label class="field">
+                        <span class="field__label">Surel <span class="req" aria-hidden="true">*</span></span>
+                        <input type="email" class="input" id="email" name="email" placeholder="nama.siswa@sekolah.sch.id" required>
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Kata sandi <span class="req" aria-hidden="true">*</span></span>
+                        <input type="password" class="input" id="password" name="password" placeholder="Masukkan kata sandi" required>
+                    </label>
+
+                    <div id="loginAlert"></div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-lg">Masuk</button>
+                        <a href="#" onclick="return simulasiInfo(this)" class="btn btn-ghost">Lupa password? <span class="mono muted">(simulasi)</span></a>
+                    </div>
+
+                    <hr class="rule">
+
+                    <p class="muted">Belum punya akun? <a href="#" onclick="return simulasiInfo(this)" class="text-link">Daftar sekarang <span class="mono">(simulasi)</span></a></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer__inner">
+            <span class="site-footer__brand"><span class="brand-mark" aria-hidden="true"></span>Galeri Proyek</span>
+            <span>© 2026 · Sesi 2025–2026</span>
+            <span>Dibuat dengan kertas &amp; tinta</span>
+        </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts/main.js"></script> 
+    <script src="scripts/main.js"></script>
 </body>
 </html>

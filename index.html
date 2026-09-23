@@ -3,74 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeri Karya Siswa - Beranda</title>
+    <title>Galeri Proyek Siswa — Beranda</title>
     <meta name="description" content="Galeri Proyek Siswa — temukan inovasi dan kreativitas terbaik dari siswa-siswi, dari proyek sains, informatika, hingga seni rupa.">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles/custom.css">
 </head>
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html">
-                <i class="bi bi-mortarboard-fill logoicon text-warning"></i> 
-                <span>GALERI <span style="color:#ffeea8;">PROYEK</span></span>
-            </a>
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavCustom" aria-controls="navbarNavCustom" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavCustom">
-                <ul class="navbar-nav ms-auto align-items-lg-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html"><i class="bi bi-house-door-fill me-1"></i>Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="galeri.html"><i class="bi bi-image me-1"></i>Galeri Karya</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="profile.html"><i class="bi bi-person-fill me-1"></i>Profil Siswa</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="upload.html"><i class="bi bi-plus-square-fill me-1"></i>Tambah Karya</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-login ms-lg-3 mt-2 mt-lg-0" href="login.html"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
-                    </li>
-                </ul>
+    <a class="skip-link" href="#main">Langsung ke konten</a>
+
+    <!-- MASTHEAD -->
+    <header class="masthead">
+        <div class="top-strip">
+            <div class="container">
+                <span>Galeri Proyek Sekolah</span>
+                <span class="top-strip__right">Sesi 2025–2026 · Terbuka untuk umum</span>
             </div>
         </div>
-    </nav>
-    <!-- END NAVBAR -->
-
-    <header class="jumbotron text-center p-5 bg-primary text-white">
-        <div class="container">
-            <h1>Selamat Datang di Galeri Proyek Siswa</h1>
-            <p class="lead">Temukan inovasi dan kreativitas terbaik dari siswa-siswi kami.</p>
-            <a href="galeri.html" class="btn btn-light btn-lg mt-3">Eksplorasi Sekarang</a>
-        </div>
+        <nav class="main-nav navbar-custom" aria-label="Navigasi utama">
+            <div class="container nav-container">
+                <a class="brand" href="index.html" aria-label="Beranda Galeri Proyek">
+                    <span class="brand-mark" aria-hidden="true"></span>
+                    <span class="brand-word">Galeri<span class="brand-word--accent">Proyek</span></span>
+                </a>
+                <input type="checkbox" id="nav-toggle" class="nav-toggle">
+                <label for="nav-toggle" class="nav-burger" aria-label="Buka menu navigasi">
+                    <span class="nav-burger__line"></span>
+                    <span class="nav-burger__line"></span>
+                </label>
+                <div class="nav-panel">
+                    <ul class="nav-list">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
+                        <li class="nav-item"><a class="nav-link" href="galeri.html">Galeri</a></li>
+                        <li class="nav-item"><a class="nav-link" href="profile.html">Profil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="upload.html">Tambah Karya</a></li>
+                        <li class="nav-item nav-item--cta"><a class="btn btn-outline btn-sm" href="login.html">Masuk</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
+    <!-- END MASTHEAD -->
 
-    <div class="container my-5">
-        <h2 class="text-center mb-4">✨ Karya Unggulan</h2>
-        <div class="row" id="karya-unggulan">
-            <!-- akan diisi dengan JS -->
-        </div>
-        <div class="text-center mt-4">
-            <a href="galeri.html" class="btn btn-outline-primary">Lihat Semua Karya</a>
-        </div>
-    </div>
+    <main id="main">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="container">
+                <p class="hero__kicker mono reveal">Pameran karya pelajar · Sesi 2025–2026</p>
+                <h1 class="hero__title reveal">Karya pelajar, <em>dipajang</em> seperti seni sejati.</h1>
+                <div class="hero__row reveal">
+                    <p class="hero__lead">Dari robotika, fisika terapan, informatika, hingga seni rupa — jelajahi proyek terbaik yang dibuat langsung oleh siswa-siswi.</p>
+                    <div class="hero__cta">
+                        <a class="btn" href="galeri.html">Eksplorasi galeri</a>
+                        <a class="btn btn-outline" href="upload.html">Unggah karya</a>
+                    </div>
+                </div>
+                <dl class="hero__stats reveal">
+                    <div>
+                        <dt id="statKarya">–</dt>
+                        <dd>Karya dipamerkan</dd>
+                    </div>
+                    <div>
+                        <dt id="statKategori">–</dt>
+                        <dd>Kategori karya</dd>
+                    </div>
+                    <div>
+                        <dt id="statLikes">–</dt>
+                        <dd>Total apresiasi</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
 
-    <footer class="bg-light text-center py-3 mt-5">
-        <p class="mb-0 text-muted">&copy; 2026 Galeri Proyek Siswa Sekolah.</p>
+        <!-- MARQUEE -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee__track">
+                <span>Fisika</span><b>●</b><span>Informatika</span><b>●</b><span>Seni Rupa</span><b>●</b><span>Sejarah</span><b>●</b><span>B. Indonesia</span><b>●</b><span>Lainnya</span><b>●</b>
+                <span>Fisika</span><b>●</b><span>Informatika</span><b>●</b><span>Seni Rupa</span><b>●</b><span>Sejarah</span><b>●</b><span>B. Indonesia</span><b>●</b><span>Lainnya</span><b>●</b>
+            </div>
+        </div>
+
+        <!-- KARYA UNGGULAN -->
+        <section class="section">
+            <div class="container">
+                <header class="section-head reveal">
+                    <div>
+                        <span class="section-head__lab">01 · Karya unggulan</span>
+                        <h2>Yang paling diapresiasi</h2>
+                    </div>
+                    <a class="btn btn-ghost btn-sm" href="galeri.html">Lihat semua <span aria-hidden="true">→</span></a>
+                </header>
+                <div id="karya-unggulan" class="featured-grid" aria-live="polite"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer__inner">
+            <span class="site-footer__brand"><span class="brand-mark" aria-hidden="true"></span>Galeri Proyek</span>
+            <span>© 2026 · Sesi 2025–2026</span>
+            <span>Dibuat dengan kertas &amp; tinta</span>
+        </div>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Main JS -->
     <script src="scripts/main.js"></script>
 </body>
 </html>
