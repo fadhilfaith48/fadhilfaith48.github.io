@@ -257,10 +257,13 @@ function filterKarya() {
     const term = searchInput ? searchInput.value.toLowerCase() : '';
     const cat = categoryFilter ? categoryFilter.value : 'all';
     const cls = classFilter ? classFilter.value : 'all';
+    const kelasOk = cls === 'all' ||
+        String(k.kelas).trim() === cls ||
+        String(k.kelas).trim().startsWith(cls + ' ');
     const hasil = getSemuaKarya().filter(k =>
         (k.judul.toLowerCase().includes(term) || k.siswa.toLowerCase().includes(term)) &&
         (cat === 'all' || k.kategori === cat) &&
-        (cls === 'all' || k.kelas.includes(cls)));
+        kelasOk);
     renderKarya(hasil, 'galeri-semua-karya');
     if (noResult) noResult.style.display = hasil.length === 0 ? 'block' : 'none';
 }
