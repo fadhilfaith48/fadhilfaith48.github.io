@@ -571,7 +571,9 @@ function initUploadGate() {
     if (!sesi) {
         if (gate) gate.hidden = false;
         form.hidden = true;
-        localStorage.setItem('galeriRedirect', 'upload.html');
+        if (gate) gate.querySelectorAll('a[href*="login.html"]').forEach(a => {
+            a.addEventListener('click', () => localStorage.setItem('galeriRedirect', 'upload.html'));
+        });
         return;
     }
     if (gate) gate.hidden = true;
