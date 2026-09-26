@@ -285,7 +285,11 @@ function renderDetailKarya() {
 
     let media = '';
     if (karya.tipe === 'pdf') {
-        media = `<div class="pdf-viewer"><iframe src="${esc(karya.file)}" title="Pratinjau ${esc(karya.judul)}"></iframe></div>
+        const dataUrl = /^data:/i.test(karya.file || '');
+        media = dataUrl
+            ? `<div class="pdf-viewer pdf-viewer--local"><p class="pdf-note">Berkas PDF tersimpan aman di perangkat ini dan dapat diunduh di bawah.</p></div>`
+            : `<div class="pdf-viewer"><iframe src="${esc(karya.file)}" title="Pratinjau ${esc(karya.judul)}"></iframe></div>`;
+        media += `
             <a class="btn btn-outline btn-sm" href="${esc(karya.file)}" target="_blank" rel="noopener">Unduh / buka PDF penuh</a>`;
     } else {
         media = `<figure class="detail-media"><img src="${esc(karya.file)}" alt="${esc(karya.judul)}" onerror="imgErr(this)"></figure>`;
