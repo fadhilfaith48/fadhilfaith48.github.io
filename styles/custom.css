@@ -625,6 +625,16 @@ body.modal-open{overflow:hidden}
 [hidden]{display:none !important}
 
 /* ================================
+   TAUTAN PROFIL SISWA (di kartu)
+   ================================ */
+.karya-card__profil{
+  position:relative;z-index:3;display:inline-block;margin-top:.75rem;
+  font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);border-bottom:1px solid transparent;transition:color .2s,border-color .2s;
+}
+.karya-card__profil:hover{color:var(--accent-2);border-color:var(--accent-2)}
+
+/* ================================
    KARTU FAVORIT (hapus cepat)
    ================================ */
 .karya-card__fav{
