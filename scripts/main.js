@@ -40,7 +40,7 @@ function renderNavbarSesi() {
     if (!sesi) { holder.innerHTML = '<a class="btn btn-outline btn-sm" href="login.html">Masuk</a>'; return; }
     const inisial = (sesi.nama || '?').trim().charAt(0).toUpperCase();
     holder.innerHTML = `<div class="nav-cta-wrap">
-        <a class="sesi-chip" href="profile.html" title="Buka profil Anda">
+        <a class="sesi-chip" href="profile.html?siswa=${encodeURIComponent(sesi.nama)}" title="Buka profil Anda">
             <span class="sesi-chip__ava">${esc(inisial)}</span>
             <span class="sesi-chip__nama">${esc(sesi.nama.split(' ')[0])}</span>
         </a>
@@ -233,6 +233,7 @@ function renderKarya(karyaArray, targetElementId) {
                     <span>${esc(k.siswa)} · ${esc(k.kelas)}</span>
                     <span class="like-num">♥ ${effLikes(k)}</span>
                 </p>
+                <a class="karya-card__profil" href="profile.html?siswa=${encodeURIComponent(k.siswa)}">Profil siswa →</a>
             </div>
         </article>`).join('');
 }
@@ -358,20 +359,32 @@ function beriApresiasi(nama) {
     simpanLok('galeriApresiasi', map); simpanLok('galeriApresiasiSet', set);
     return true;
 }
+function getNamaProfil() {
+    const param = getUrlParameter('siswa');
+    if (param) return param;
+    const sesi = getSesi();
+    if (sesi && sesi.nama) return sesi.nama;
+    return 'Fadhil Faith';
+}
+function surelSiswa(nama) {
+    return String(nama).toLowerCase().replace(/[^a-z0-9]+/g, '.').replace(/^\.+|\.+$/g, '') + '@sekolah.sch.id';
+}
 function bukaKontak() {
     const modal = document.getElementById('kontakModal');
     const body = document.getElementById('kontakModalBody');
     if (!modal || !body) return;
-    const email = 'fadhil.faith@sekolah.sch.id';
+    const nama = getNamaProfil();
+    const kelas = (getSemuaKarya().find(k => k.siswa === nama) || {}).kelas || '';
+    const email = surelSiswa(nama);
     const wa = '+62 812-3456-7890';
     body.innerHTML = `
         <h3 class="card-panel__title" style="font-size:1.3rem;margin-bottom:.4rem">Hubungi siswa</h3>
         <hr class="rule">
-        <p class="comment__meta"><strong>Fadhil Faith</strong> · XI RPL 1</p>
-        <div class="kontak-row"><span class="mono">Surel</span><strong>${email}</strong>
-            <button class="btn btn-sm btn-outline" type="button" data-salin="${email}">Salin</button></div>
-        <div class="kontak-row"><span class="mono">WhatsApp</span><strong>${wa}</strong>
-            <button class="btn btn-sm btn-outline" type="button" data-salin="${wa}">Salin</button></div>
+        <p class="comment__meta"><strong>${esc(nama)}</strong>${kelas ? ' · ' + esc(kelas) : ''}</p>
+        <div class="kontak-row"><span class="mono">Surel</span><strong>${esc(email)}</strong>
+            <button class="btn btn-sm btn-outline" type="button" data-salin="${esc(email)}">Salin</button></div>
+        <div class="kontak-row"><span class="mono">WhatsApp</span><strong>${esc(wa)}</strong>
+            <button class="btn btn-sm btn-outline" type="button" data-salin="${esc(wa)}">Salin</button></div>
         <p class="field__hint">Demo: balasan akan dikirim ke alamat di atas.</p>`;
     openModalEl(modal);
     body.querySelectorAll('[data-salin]').forEach(b => b.addEventListener('click', () => {
@@ -379,14 +392,18 @@ function bukaKontak() {
     }));
 }
 function bagikanProfil() {
+    const nama = getNamaProfil();
     const url = location.href;
-    const text = 'Lihat profil Fadhil Faith di Galeri Proyek Sekolah!';
+    const text = 'Lihat profil ' + nama + ' di Galeri Proyek Sekolah!';
     if (navigator.share) { navigator.share({ title: 'Galeri Proyek', text, url }).catch(() => { }); }
     else salinTeks(url).then(() => toastPesan('Link profil disalin ke clipboard.')).catch(() => toastPesan('Gagal menyalin link.', 'warn'));
 }
 function unduhCV() {
-    const siswa = { nama: 'Fadhil Faith', kelas: 'XI RPL 1', jurusan: 'Sains & Teknologi', email: 'fadhil.faith@sekolah.sch.id', bio: 'Saya memiliki minat besar dalam pemrograman, fisika terapan, dan robotika.' };
-    const karya = getSemuaKarya().filter(k => k.siswa === siswa.nama).map(k => '- ' + k.judul + ' (' + k.kategori + ', ' + k.kelas + ')');
+    const nama = getNamaProfil();
+    const karyaSiswa = getSemuaKarya().filter(k => k.siswa === nama);
+    const kelas = (karyaSiswa[0] || {}).kelas || '—';
+    const siswa = { nama, kelas, jurusan: 'Sains & Teknologi', email: surelSiswa(nama), bio: 'Saya memiliki minat besar dalam pemrograman, fisika terapan, dan robotika.' };
+    const karya = karyaSiswa.map(k => '- ' + k.judul + ' (' + k.kategori + ', ' + k.kelas + ')');
     const txt = [
         '===============================================',
         'CURRICULUM VITAE / PORTOFOLIO',
@@ -413,18 +430,26 @@ function unduhCV() {
     const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'CV-Fadhil-Faith.txt';
+    a.download = 'CV-' + nama.replace(/\s+/g, '-') + '.txt';
     document.body.appendChild(a);
     a.click();
     setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 300);
     toastPesan('CV berhasil diunduh.');
 }
 function renderProfilSiswa() {
-    const target = 'Fadhil Faith';
     const info = document.getElementById('siswa-info');
     const list = document.getElementById('karya-siswa-list');
     if (!info || !list) return;
-    const siswa = { nama: target, kelas: 'XI RPL 1', jurusan: 'Sains & Teknologi', bio: 'Saya memiliki minat besar dalam pemrograman, fisika terapan, dan robotika.', image: 'assets/images/default-profile.png' };
+    const target = getNamaProfil();
+    const paramSiswa = getUrlParameter('siswa');
+    const karyaSiswa = getSemuaKarya().filter(k => k.siswa === target);
+    if (!karyaSiswa.length && paramSiswa) {
+        info.innerHTML = `<aside class="profile-card"><h3 class="profile-card__name">${esc(target)}</h3><p class="profile-card__bio muted">Siswa tidak ditemukan atau belum memiliki karya yang dipublikasikan.</p></aside>`;
+        list.innerHTML = '';
+        document.getElementById('noKarya').style.display = 'none';
+        return;
+    }
+    const siswa = { nama: target, kelas: (karyaSiswa[0] || {}).kelas || '', jurusan: 'Sains & Teknologi', bio: 'Saya memiliki minat besar dalam pemrograman, fisika terapan, dan robotika.', image: 'assets/images/default-profile.png' };
     const fav = isFavorit(target);
     const apres = sudahApresiasi(target);
     const apresCount = bacaLok('galeriApresiasi', {})[target] || 0;
@@ -453,7 +478,7 @@ function renderProfilSiswa() {
             <p class="field__hint mono">Apresiasi diterima: <strong>${apresCount}</strong></p>
         </aside>`;
 
-    const karya = getSemuaKarya().filter(k => k.siswa === target);
+    const karya = karyaSiswa;
     list.innerHTML = karya.map(k => `
         <article class="karya-card">
             <a class="karya-card__link" href="detail-karya.html?id=${k.id}" aria-label="${esc(k.judul)} — lihat proyek">Lihat proyek</a>
@@ -468,6 +493,7 @@ function renderProfilSiswa() {
             </div>
         </article>`).join('');
     document.getElementById('noKarya').style.display = karya.length ? 'none' : 'block';
+    document.title = target + ' | Profil — Galeri Proyek';
 }
 function initProfileActions() {
     const info = document.getElementById('siswa-info');
@@ -475,7 +501,7 @@ function initProfileActions() {
     info.addEventListener('click', e => {
         const btn = e.target.closest('[data-aksi]');
         if (!btn) return;
-        const nama = 'Fadhil Faith';
+        const nama = getNamaProfil();
         const aksi = btn.getAttribute('data-aksi');
         if (aksi === 'kontak') bukaKontak();
         else if (aksi === 'favorit') {
@@ -549,6 +575,7 @@ function renderKaryaFavorit() {
                     <span>${esc(k.siswa)} · ${esc(k.kelas)}</span>
                     <span class="like-num">♥ ${effLikes(k)}</span>
                 </p>
+                <a class="karya-card__profil" href="profile.html?siswa=${encodeURIComponent(k.siswa)}">Profil siswa →</a>
                 <button type="button" class="btn btn-ghost btn-sm karya-card__fav" data-unfav="${esc(k.siswa)}">★ Hapus dari favorit</button>
             </div>
         </article>`).join('');
