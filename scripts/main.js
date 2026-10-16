@@ -316,15 +316,43 @@ function renderDetailKarya() {
                 <div class="info-actions">
                     <button type="button" class="btn btn-like${ld.liked ? ' is-liked' : ''}" data-like="${karya.id}">${ld.liked ? '♥' : '♡'} ${n} suka</button>
                     <a class="btn btn-outline" href="${esc(karya.file)}" target="_blank" rel="noopener">Lihat file penuh</a>
+                    ${bolehHapusKarya(karya) ? `<button type="button" class="btn btn-danger" data-hapus="${karya.id}">Hapus karya ini</button>` : ''}
                 </div>
             </aside>
         </div>`;
     document.title = karya.judul + " | Galeri Siswa";
 }
+function bolehHapusKarya(karya) {
+    if (!karya || !karya.pemilik) return false;
+    const sesi = getSesi();
+    if (!sesi) return false;
+    return karya.pemilik === (sesi.email || sesi.nama);
+}
+function hapusKarya(id) {
+    const arr = bacaLok('galeriKarya', []);
+    const sisa = arr.filter(k => k.id !== id);
+    if (sisa.length === arr.length) return false;
+    simpanLok('galeriKarya', sisa);
+    return true;
+}
 function initDetailLike() {
     const container = document.getElementById('karya-detail-container');
     if (!container) return;
     container.addEventListener('click', e => {
+        const del = e.target.closest('[data-hapus]');
+        if (del) {
+            const id = parseInt(del.getAttribute('data-hapus'), 10);
+            const karya = getSemuaKarya().find(k => k.id === id);
+            if (!karya || !bolehHapusKarya(karya)) return;
+            if (!confirm('Hapus karya "' + karya.judul + '" secara permanen?')) return;
+            if (hapusKarya(id)) {
+                toastPesan('Karya dihapus.');
+                setTimeout(() => { location.href = 'galeri.html'; }, 800);
+            } else {
+                toastPesan('Gagal menghapus karya.', 'warn');
+            }
+            return;
+        }
         const btn = e.target.closest('[data-like]');
         if (!btn) return;
         const id = parseInt(btn.getAttribute('data-like'), 10);
@@ -759,7 +787,8 @@ function initUploadForm() {
 
         let arr = bacaLok('galeriKarya', []);
         const newId = getSemuaKarya().reduce((m, k) => Math.max(m, k.id || 0), 0) + 1;
-        arr.push({ id: newId, judul, deskripsi, siswa, kelas, kategori, tipe, file: sumber, thumbnail: sumber, likes: 0, waktu: Date.now() });
+        const sesi = getSesi();
+        arr.push({ id: newId, judul, deskripsi, siswa, kelas, kategori, tipe, file: sumber, thumbnail: sumber, likes: 0, waktu: Date.now(), pemilik: sesi ? (sesi.email || sesi.nama) : '' });
         simpanLok('galeriKarya', arr);
 
         box.innerHTML = '<div class="alert alert-success">Karya berhasil diunggah! Mengarahkan ke Galeri...</div>';
