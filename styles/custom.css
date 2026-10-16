@@ -374,6 +374,7 @@ a{color:inherit}
    KOMENTAR
    ================================ */
 .comment-list{margin:0 0 1.6rem}
+.comments-section{margin-top:clamp(2.2rem,5vw,3.4rem)}
 .comment{border-bottom:1px dashed var(--line-2);padding:1.15rem 0}
 .comment__meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 .45rem}
 .comment__meta strong{color:var(--ink)}
@@ -464,6 +465,8 @@ select.input{cursor:pointer;appearance:none;
    ================================ */
 .profile-grid{display:grid;grid-template-columns:5fr 7fr;gap:32px;align-items:start}
 @media(max-width:880px){.profile-grid{grid-template-columns:1fr}}
+.profile-grid__side{min-width:0}
+.profile-grid__main{min-width:0}
 .profile-card{position:sticky;top:96px;border:1px solid var(--line);border-top:4px solid var(--accent);background:var(--card);padding:1.7rem}
 @media(max-width:880px){.profile-card{position:static}}
 .profile-card__head{display:flex;gap:18px;align-items:center;margin-bottom:1.1rem}
