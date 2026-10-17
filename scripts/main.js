@@ -720,7 +720,7 @@ function initPanelSwitch() {
 function initLoginForm() {
     const form = document.getElementById('loginForm');
     if (!form) return;
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
         e.preventDefault();
         const email = document.getElementById('email').value.trim().toLowerCase();
         const pass = document.getElementById('password').value.trim();
@@ -729,13 +729,37 @@ function initLoginForm() {
         if (!email || !pass) { box.innerHTML = '<div class="alert alert-warning">Mohon isi surel dan kata sandi terlebih dahulu.</div>'; return; }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { box.innerHTML = '<div class="alert alert-warning">Format surel tidak valid.</div>'; return; }
         if (pass.length < 6) { box.innerHTML = '<div class="alert alert-warning">Kata sandi minimal 6 karakter.</div>'; return; }
+
+        // Coba login via Supabase Auth
+        if (supabaseClient && supabaseClient.auth) {
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
+                if (error) throw error;
+                if (data.user) {
+                    setSesi({ id: data.user.id, nama: data.user.user_metadata?.nama || email.split('@')[0].replace(/[._-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), email, kelas: data.user.user_metadata?.kelas || '', masuk: Date.now() });
+                }
+                box.innerHTML = '<div class="alert alert-success">Login berhasil! Mengarahkan ke beranda...</div>';
+                form.reset();
+                setTimeout(() => { location.href = 'index.html'; }, 1000);
+                return;
+            } catch (err) {
+                box.innerHTML = `<div class="alert alert-warning">${err.message || 'Gagal login via Supabase.'}</div>`;
+            }
+        }
+
+        // Fallback: cek di localStorage
         const akun = bacaLok('galeriAkun', []).find(a => a.email === email);
-        if (akun && akun.password !== pass) { box.innerHTML = '<div class="alert alert-warning">Kata sandi tidak cocok dengan akun terdaftar.</div>'; return; }
-        const nama = akun ? akun.nama : email.split('@')[0].replace(/[._-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-        setSesi({ nama, email, kelas: akun ? akun.kelas : '', masuk: Date.now() });
-        box.innerHTML = '<div class="alert alert-success">Login berhasil! Mengarahkan ke beranda...</div>';
-        form.reset();
-        setTimeout(() => { location.href = redirectSetelahLogin(); }, 1000);
+        if (akun && akun.password === pass) {
+            const nama = akun.nama;
+            setSesi({ nama, email, kelas: akun.kelas, masuk: Date.now() });
+            box.innerHTML = '<div class="alert alert-success">Login berhasil! Mengarahkan ke beranda...</div>';
+            form.reset();
+            setTimeout(() => { location.href = 'index.html'; }, 1000);
+        } else if (!akun) {
+            box.innerHTML = '<div class="alert alert-warning">Surel tidak terdaftar. Silakan daftar terlebih dahulu.</div>';
+        } else {
+            box.innerHTML = '<div class="alert alert-warning">Kata sandi tidak cocok.</div>';
+        }
     });
 }
 function initRegisterForm() {
