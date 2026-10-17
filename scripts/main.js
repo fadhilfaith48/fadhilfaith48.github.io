@@ -29,9 +29,48 @@ function pengunjungKey() {
 // =======================
 // SESI LOGIN
 // =======================
-function getSesi() { try { return JSON.parse(localStorage.getItem('galeriSesi')) || null; } catch (e) { return null; } }
-function setSesi(s) { localStorage.setItem('galeriSesi', JSON.stringify(s)); }
-function hapusSesi() { localStorage.removeItem('galeriSesi'); }
+let _sbSession = null;
+let _sbUser = null;
+
+function _normSesiFromAuth(session) {
+    if (!session || !session.user) return null;
+    const u = session.user;
+    const meta = u.user_metadata || {};
+    const nama = (meta.nama || meta.full_name || u.email?.split('@')[0] || 'Pengguna').toString().trim();
+    const email = (u.email || '').toString().trim();
+    return { id: u.id, nama, email, kelas: meta.kelas || '' };
+}
+
+function getSesi() {
+    if (_sbSession && _sbUser) return _normSesiFromAuth(_sbSession);
+    try { return JSON.parse(localStorage.getItem('galeriSesi')) || null; } catch (e) { return null; }
+}
+function setSesi(s) { try { localStorage.setItem('galeriSesi', JSON.stringify(s)); } catch (e) {} }
+function hapusSesi() {
+    try { localStorage.removeItem('galeriSesi'); } catch (e) {}
+    if (supabaseClient && supabaseClient.auth) {
+        supabaseClient.auth.signOut().catch(() => {});
+    }
+}
+
+async function initSupabaseSession() {
+    if (!supabaseClient || !supabaseClient.auth) return;
+    try {
+        const { data } = await supabaseClient.auth.getSession();
+        _sbSession = data.session || null;
+        _sbUser = _sbSession ? _sbSession.user : null;
+        renderNavbarSesi();
+    } catch (e) {
+        renderNavbarSesi();
+    }
+    try {
+        supabaseClient.auth.onAuthStateChange((_event, session) => {
+            _sbSession = session || null;
+            _sbUser = _sbSession ? _sbSession.user : null;
+            renderNavbarSesi();
+        });
+    } catch (e) {}
+}
 
 function renderNavbarSesi() {
     const holder = document.getElementById('navSesi');
@@ -39,15 +78,21 @@ function renderNavbarSesi() {
     const sesi = getSesi();
     if (!sesi) { holder.innerHTML = '<a class="btn btn-outline btn-sm" href="login.html">Masuk</a>'; return; }
     const inisial = (sesi.nama || '?').trim().charAt(0).toUpperCase();
+    const firstName = (sesi.nama || '').split(' ')[0] || 'Saya';
     holder.innerHTML = `<div class="nav-cta-wrap">
         <a class="sesi-chip" href="profile.html?siswa=${encodeURIComponent(sesi.nama)}" title="Buka profil Anda">
             <span class="sesi-chip__ava">${esc(inisial)}</span>
-            <span class="sesi-chip__nama">${esc(sesi.nama.split(' ')[0])}</span>
+            <span class="sesi-chip__nama">${esc(firstName)}</span>
         </a>
         <button type="button" class="btn btn-outline btn-sm" id="btnLogout">Keluar</button>
     </div>`;
     const out = holder.querySelector('#btnLogout');
-    if (out) out.addEventListener('click', () => { hapusSesi(); renderNavbarSesi(); toastPesan('Sesi berakhir. Sampai jumpa!'); });
+    if (out) out.addEventListener('click', async () => {
+        out.disabled = true;
+        await hapusSesi();
+        renderNavbarSesi();
+        toastPesan('Sesi berakhir. Sampai jumpa!');
+    });
 }
 
 // =======================
@@ -803,6 +848,7 @@ function initUploadForm() {
 // =======================
 document.addEventListener('DOMContentLoaded', () => {
     renderNavbarSesi();
+    initSupabaseSession();
 
     if (document.getElementById('karya-unggulan')) {
         const karyaUnggulan = getSemuaKarya().slice().sort((a, b) => (b.likes || 0) - (a.likes || 0)).slice(0, 3);
