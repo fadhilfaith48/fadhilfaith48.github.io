@@ -741,7 +741,7 @@ function initLoginForm() {
 function initRegisterForm() {
     const form = document.getElementById('registerForm');
     if (!form) return;
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
         e.preventDefault();
         const nama = document.getElementById('regNama').value.trim();
         const email = document.getElementById('regEmail').value.trim().toLowerCase();
@@ -752,13 +752,38 @@ function initRegisterForm() {
         if (!nama || !email || !pass) { box.innerHTML = '<div class="alert alert-warning">Lengkapi nama, surel, dan kata sandi.</div>'; return; }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { box.innerHTML = '<div class="alert alert-warning">Format surel tidak valid.</div>'; return; }
         if (pass.length < 6) { box.innerHTML = '<div class="alert alert-warning">Kata sandi minimal 6 karakter.</div>'; return; }
+
+        // Coba daftar via Supabase Auth
+        if (supabaseClient && supabaseClient.auth) {
+            try {
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email,
+                    password: pass,
+                    options: {
+                        data: { nama, kelas }
+                    }
+                });
+                if (error) throw error;
+                // Set sesi dari hasil signUp
+                if (data.user) {
+                    setSesi({ id: data.user.id, nama: data.user.user_metadata?.nama || nama, email, kelas: data.user.user_metadata?.kelas || kelas, masuk: Date.now() });
+                }
+                box.innerHTML = '<div class="alert alert-success">Akun dibuat & login! Mengarahkan ke beranda...</div>';
+                setTimeout(() => { location.href = 'index.html'; }, 1000);
+                return;
+            } catch (err) {
+                box.innerHTML = `<div class="alert alert-warning">${err.message || 'Gagal daftar via Supabase.'}</div>`;
+            }
+        }
+
+        // Fallback: simpan ke localStorage (tanpa login otomatis)
         const akun = bacaLok('galeriAkun', []);
         if (akun.some(a => a.email === email)) { box.innerHTML = '<div class="alert alert-warning">Surel sudah terdaftar. Silakan masuk.</div>'; return; }
         akun.push({ nama, email, password: pass, kelas });
         simpanLok('galeriAkun', akun);
         setSesi({ nama, email, kelas, masuk: Date.now() });
         box.innerHTML = '<div class="alert alert-success">Akun dibuat & login! Mengarahkan ke beranda...</div>';
-        setTimeout(() => { location.href = redirectSetelahLogin(); }, 1000);
+        setTimeout(() => { location.href = 'index.html'; }, 1000);
     });
 }
 function initForgotForm() {
