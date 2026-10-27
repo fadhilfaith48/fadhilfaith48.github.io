@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karya Favorit — Galeri Proyek</title>
-    <meta name="description" content="Kumpulan karya dari siswa yang Anda favoritkan di Galeri Proyek Siswa.">
+    <title>Siswa Favorit — Galeri Proyek</title>
+    <meta name="description" content="Daftar siswa yang Anda favoritkan beserta karya-karya mereka di Galeri Proyek Siswa.">
     <link rel="stylesheet" href="styles/custom.css">
 </head>
 <body>
@@ -48,17 +48,26 @@
         <div class="container section">
             <header class="page-head reveal">
                 <p class="page-head__kicker">Katalog pribadi Anda</p>
-                <h1>Karya <em>favorit</em></h1>
-                <p class="page-head__lead muted">Semua karya dari siswa yang Anda favoritkan, terkumpul di satu tempat perangkat ini.</p>
-                <p class="mono muted" id="favoritCount" style="margin:1rem 0 0;">0 karya tersimpan</p>
+                <h1>Siswa <em>favorit</em></h1>
+                <p class="page-head__lead muted">Simpan siswa yang ingin Anda ikuti dan temukan semua karya mereka di sini. Favorit tersimpan di browser ini.</p>
+                <p class="mono muted" id="favoritCount" style="margin:1rem 0 0;">0 siswa tersimpan</p>
             </header>
 
-            <div id="galeri-favorit" class="masonry" aria-live="polite"></div>
+            <label class="field favorite-search" id="favoriteSearchWrap">
+                <span class="field__label">Cari siswa atau karya</span>
+                <input type="search" id="favoriteSearch" class="input" placeholder="mis. Fadhil atau robot">
+            </label>
+
+            <div id="galeri-favorit" class="favorite-student-list" aria-live="polite"></div>
+
+            <p id="favoritNoResult" class="empty-state" style="display:none;">
+                Tidak ada siswa atau karya yang cocok. Coba kata kunci lain.
+            </p>
 
             <p id="favoritEmpty" class="empty-state" style="display:none;">
                 Belum ada favorit.<br>
                 Buka <a class="text-link" href="profile.html">halaman profil siswa</a>, lalu tekan
-                <strong>★ Favoritkan</strong> untuk menyimpannya di sini.
+                <strong>☆ Favoritkan</strong> untuk menyimpan siswa di sini.
             </p>
         </div>
     </main>

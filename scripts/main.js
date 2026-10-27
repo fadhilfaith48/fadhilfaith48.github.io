@@ -633,35 +633,67 @@ function initReveals() {
 function renderKaryaFavorit() {
     const container = document.getElementById('galeri-favorit');
     const empty = document.getElementById('favoritEmpty');
+    const noResult = document.getElementById('favoritNoResult');
     const count = document.getElementById('favoritCount');
     if (!container) return;
     const fav = bacaLok('galeriFavorit', []);
-    const karya = getSemuaKarya().filter(k => fav.includes(k.siswa));
-    container.innerHTML = karya.map(k => `
-        <article class="karya-card">
-            <a class="karya-card__link" href="detail-karya.html?id=${k.id}" aria-label="${esc(k.judul)} — lihat detail">Lihat detail</a>
-            ${kartuMedia(k)}
-            <div class="karya-card__body">
-                <span class="tag">${esc(k.kategori)}</span>
-                <h3 class="karya-card__title">${esc(k.judul)}</h3>
-                <p class="karya-card__meta">
-                    <span>${esc(k.siswa)} · ${esc(k.kelas)}</span>
-                    <span class="like-num">♥ ${effLikes(k)}</span>
-                </p>
-                <a class="karya-card__profil" href="profile.html?siswa=${encodeURIComponent(k.siswa)}">Profil siswa →</a>
-                <button type="button" class="btn btn-ghost btn-sm karya-card__fav" data-unfav="${esc(k.siswa)}">★ Hapus dari favorit</button>
-            </div>
-        </article>`).join('');
-    if (count) count.textContent = karya.length + ' karya tersimpan';
-    if (empty) empty.style.display = karya.length ? 'none' : 'block';
-    container.querySelectorAll('[data-unfav]').forEach(b => b.addEventListener('click', () => {
-        const nama = b.getAttribute('data-unfav');
-        const f = bacaLok('galeriFavorit', []);
-        const i = f.indexOf(nama);
-        if (i > -1) { f.splice(i, 1); simpanLok('galeriFavorit', f); }
-        renderKaryaFavorit();
-        toastPesan('Dihapus dari favorit.');
+    const semuaKarya = getSemuaKarya();
+    const query = (document.getElementById('favoriteSearch') || {}).value || '';
+    const term = query.trim().toLocaleLowerCase('id');
+    const siswaFavorit = fav.map(nama => ({
+        nama,
+        karya: semuaKarya.filter(k => k.siswa === nama)
     }));
+    const hasil = siswaFavorit.filter(siswa => {
+        const detail = siswa.karya.map(k => `${k.judul} ${k.kategori} ${k.kelas}`).join(' ');
+        return `${siswa.nama} ${detail}`.toLocaleLowerCase('id').includes(term);
+    });
+
+    container.innerHTML = hasil.map(siswa => `
+        <article class="favorite-student-card">
+            <div class="favorite-student-card__head">
+                <div>
+                    <span class="section-head__lab">Siswa favorit</span>
+                    <h2>${esc(siswa.nama)}</h2>
+                    <p class="mono muted">${siswa.karya.length} karya dipublikasikan</p>
+                </div>
+                <div class="favorite-student-card__actions">
+                    <a class="btn btn-outline btn-sm" href="profile.html?siswa=${encodeURIComponent(siswa.nama)}">Lihat profil</a>
+                    <button type="button" class="btn btn-ghost btn-sm" data-unfav="${esc(siswa.nama)}">Hapus favorit</button>
+                </div>
+            </div>
+            ${siswa.karya.length ? `
+                <ul class="favorite-work-list">
+                    ${siswa.karya.map(k => `
+                        <li>
+                            <a href="detail-karya.html?id=${k.id}">${esc(k.judul)}</a>
+                            <span class="tag">${esc(k.kategori)}</span>
+                            <span class="like-num">♥ ${effLikes(k)}</span>
+                        </li>`).join('')}
+                </ul>` : '<p class="muted">Belum ada karya yang dipublikasikan.</p>'}
+        </article>`).join('');
+
+    if (count) count.textContent = `${fav.length} siswa tersimpan`;
+    if (empty) empty.style.display = fav.length ? 'none' : 'block';
+    if (noResult) noResult.style.display = fav.length && !hasil.length ? 'block' : 'none';
+}
+function initFavoritPage() {
+    const container = document.getElementById('galeri-favorit');
+    const search = document.getElementById('favoriteSearch');
+    if (!container) return;
+    if (search) search.addEventListener('input', renderKaryaFavorit);
+    container.addEventListener('click', e => {
+        const button = e.target.closest('[data-unfav]');
+        if (!button) return;
+        const nama = button.getAttribute('data-unfav');
+        const fav = bacaLok('galeriFavorit', []);
+        const index = fav.indexOf(nama);
+        if (index < 0) return;
+        fav.splice(index, 1);
+        simpanLok('galeriFavorit', fav);
+        renderKaryaFavorit();
+        toastPesan('Siswa dihapus dari favorit.');
+    });
 }
 
 // =======================
@@ -922,6 +954,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderDetailKarya();
     renderProfilSiswa();
     renderKaryaFavorit();
+    initFavoritPage();
     renderKomentar(parseInt(getUrlParameter('id'), 10));
 
     initUploadGate();

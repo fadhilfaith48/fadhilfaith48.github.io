@@ -10,7 +10,7 @@ Situs pameran karya siswa berbasis web statis dengan gaya editorial "galeri seni
   - Suka (like) karya, tercatat per pengunjung.
   - Komentar & apresiasi (tulis, hapus komentar milik sendiri).
   - Bagikan profil, unduh CV (.txt), salin kontak.
-  - Favoritkan siswa → muncul di halaman "Favorit".
+  - Favoritkan siswa → muncul sebagai daftar siswa dan karya mereka di halaman "Favorit", dengan pencarian.
 - **Sistem akun (simulasi, tersimpan di localStorage)**:
   - Login, daftar akun, lupa password (demo).
   - Halaman "Tambah Karya" dikunci: wajib login; setelah masuk otomatis kembali ke halaman unggah.
@@ -40,7 +40,7 @@ index.html          Beranda (hero, statistik, karya unggulan)
 galeri.html         Katalog semua karya + filter
 detail-karya.html   Detail proyek, like, komentar
 profile.html        Profil siswa Fadhil Faith + aksi (kontak, favorit, CV, apresiasi)
-favorit.html        Karya dari siswa yang difavoritkan
+favorit.html        Daftar siswa favorit dan karya mereka
 upload.html         Form unggah karya (dikunci login)
 login.html          Login / daftar / lupa password
 404.html            Halaman tidak ditemukan
